@@ -1,6 +1,6 @@
 {
   "name": "BusAPP",
-  "app_id": "",
+  "app_id": "84179f19",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

@@ -6,6 +6,11 @@
 - $ionic install
 - $ionic serve //testa no navegador
 
+# Arquivos importantes
+- src/mocks/provider //lista de destino/horários
+- src/pages //paginas a serem exibidas
+- src/pages/pages //Define o menu inferior e a pagina inicial
+
 # Objetivos
 - Mostrar Rotas dos onibus no mapa.
 - Mostrar pontos de onibus

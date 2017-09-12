@@ -7,10 +7,10 @@
 - $ionic serve //testa no navegador
 
 # Arquivos importantes
-- src/mocks/provider 	//lista de destino/horários
-- src/pages			 	//paginas a serem exibidas
-- src/pages/pages	 	//Define o menu inferior e a pagina inicial
-- src\assets\i18n	 	//titulos das paginas
+- src/mocks/provider____//lista de destino/horários
+- src/pages_____________//paginas a serem exibidas
+- src/pages/pages_______//Define o menu inferior e a pagina inicial
+- src\assets\i18n_______//titulos das paginas
 
 # Objetivos
 - Mostrar Rotas dos onibus no mapa.

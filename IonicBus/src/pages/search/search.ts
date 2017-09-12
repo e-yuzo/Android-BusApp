@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { ItemDetailPage } from '../item-detail/item-detail';
 
@@ -9,22 +9,24 @@ import { Items } from '../../providers/providers';
 
 
 @Component({
-  selector: 'page-search',
+  selector: 'page-list-master',
   templateUrl: 'search.html'
 })
+
 export class SearchPage {
   
   currentItems: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items) { }
-
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
+    this.currentItems = this.items.query();
+  }
   /**
    * Perform a service for the proper items.
    */
   getItems(ev) {
     let val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentItems = [];
+      this.currentItems = this.items.query();
       return;
     }
     this.currentItems = this.items.query({

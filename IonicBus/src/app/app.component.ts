@@ -5,9 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { FirstRunPage } from '../pages/pages';
-import { ListMasterPage } from '../pages/list-master/list-master';
 import { SearchPage } from '../pages/search/search';
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { Settings } from '../providers/providers';
 
@@ -39,9 +37,7 @@ export class MyApp {
 
   pages: any[] = [
     
-    { title: 'Tabs', component: TabsPage },
-    { title: 'Master Detail', component: ListMasterPage },
-    { title: 'Search', component: SearchPage }
+    { title: 'My IonicBus', component: SearchPage }
   ]
 
   constructor(private translate: TranslateService, private platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {

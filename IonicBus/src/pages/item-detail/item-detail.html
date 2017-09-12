@@ -1,0 +1,75 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ item.name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  
+  
+  
+  <div class="item-detail" padding>
+
+   <h2>{{item.name}}</h2>
+   
+	<h3>Dias de Samana</h3>
+	<div id="segunda-sexta" class="row" *ngIf="item.semana">
+		
+		<div class="col">
+			<ion-list >
+				<div *ngFor="let dia of item.semana">
+					<ion-item *ngIf="dia.hora< '12:00'" > {{dia.hora}}</ion-item>
+				</div>
+
+			</ion-list>
+		</div>
+		<div class="col">
+			<ion-list >
+				<div *ngFor="let dia of item.semana">
+					<ion-item *ngIf="dia.hora <= '18:00' && dia.hora>='12:00'" > {{dia.hora}}</ion-item>
+				</div>
+			</ion-list>
+		</div>
+		<div class="col">
+			<ion-list >
+				<div *ngFor="let dia of item.semana">
+					<ion-item *ngIf="dia.hora >'18:00'" > {{dia.hora}}</ion-item>
+				</div>
+			</ion-list>
+		</div>
+	</div>
+	<h3>Aos Sabados</h3>
+	<div id="sabado" class="row" *ngIf="item.sabado">
+		
+		<div class="col">
+			<ion-list >
+				<div *ngFor="let dia of item.sabado">
+					<ion-item *ngIf="dia.hora< '12:00'" > {{dia.hora}}</ion-item>
+				</div>
+
+			</ion-list>
+		</div>
+		<div class="col">
+			<ion-list >
+				<div *ngFor="let dia of item.sabado">
+					<ion-item *ngIf="dia.hora <= '18:00' && dia.hora>='12:00'" > {{dia.hora}}</ion-item>
+				</div>
+			</ion-list>
+		</div>
+		<div class="col">
+			<ion-list >
+				<div *ngFor="let dia of item.sabado">
+					<ion-item *ngIf="dia.hora >'18:00'" > {{dia.hora}}</ion-item>
+				</div>
+			</ion-list>
+		</div>
+	</div>
+	<ion-card>
+		<img style="width:100%; height:auto"[src]="item.rota"/>
+	</ion-card>
+	</div>
+  
+</ion-content>

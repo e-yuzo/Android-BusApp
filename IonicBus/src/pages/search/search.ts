@@ -30,7 +30,7 @@ export class SearchPage {
       return;
     }
     this.currentItems = this.items.query({
-      name: val
+      name: val, about: val
     });
   }
 

@@ -20,7 +20,7 @@ export class Items {
         "name": "Terminal | UTFPR",
         "profilePic": "assets/img/bus.jpg",
         "rota": "assets/img/bus/to_utfpr.png",
-        "about": "Segunda-Sabado.(13)",
+        "about": "Terminal | ARCAM | UTFPR/CEFET",
         "semana":   [	
             { hora: "06:45"
             },
@@ -74,7 +74,7 @@ export class Items {
         "name": "UTFPR | Terminal",
         "profilePic": "assets/img/bus.jpg",
         "rota": "assets/img/bus/to_utfpr.png",
-        "about": "Segunda-Sabado.(13)",
+        "about": "ARCAM | UTFPR/CEFET | Terminal",
         "semana":   [	
             { hora: "07:00"
             },

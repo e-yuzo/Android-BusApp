@@ -1,9 +1,11 @@
 # Requisitos
+- NodeJs
 - Ionic/Cordova
 
 # Como fazer rodar
 - abrir terminal na pasta ionicBus
-- $ionic install
+- $npm install //instalar dependencias npm
+- $ionic install //instalar dependencias ionic
 - $ionic serve //testa no navegador
 
 # Arquivos importantes

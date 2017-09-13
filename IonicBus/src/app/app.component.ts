@@ -1,11 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, Config } from 'ionic-angular';
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { FirstRunPage } from '../pages/pages';
 import { SearchPage } from '../pages/search/search';
+import { TabsPage } from '../pages/tabs/tabs';
+import { MapPage } from '../pages/map/map';
 
 import { Settings } from '../providers/providers';
 
@@ -37,7 +40,8 @@ export class MyApp {
 
   pages: any[] = [
     
-    { title: 'My IonicBus', component: SearchPage }
+    { title: 'Lista de destinos', component: SearchPage },
+    { title: 'Mapa', component: MapPage }
   ]
 
   constructor(private translate: TranslateService, private platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {

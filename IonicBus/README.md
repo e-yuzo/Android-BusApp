@@ -4,9 +4,9 @@
 
 # Como fazer rodar
 - abrir terminal na pasta ionicBus
-- $npm install //instalar dependencias npm
-- $ionic install //instalar dependencias ionic
-- $ionic serve //testa no navegador
+- $ npm install //instalar dependencias npm
+- $ ionic install //instalar dependencias ionic
+- $ ionic serve //testa no navegador
 
 # Arquivos importantes
 - src/mocks/provider____//lista de destino/horários

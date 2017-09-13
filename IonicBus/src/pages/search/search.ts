@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 
 import { ItemDetailPage } from '../item-detail/item-detail';
 
@@ -10,7 +10,7 @@ import { Items } from '../../providers/providers';
 
 @Component({
   selector: 'page-list-master',
-  templateUrl: 'search.html'
+  templateUrl: 'search.html',
 })
 
 export class SearchPage {

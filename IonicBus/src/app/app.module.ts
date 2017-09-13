@@ -4,10 +4,14 @@ import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 
+
 import { MyApp } from './app.component';
 
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { SearchPage } from '../pages/search/search';
+import { TabsPage } from '../pages/tabs/tabs';
+import { MapPage } from '../pages/map/map';
+
 
 import { Api } from '../providers/api';
 import { Items } from '../mocks/providers/items';
@@ -46,8 +50,10 @@ export function provideSettings(storage: Storage) {
 @NgModule({
   declarations: [
     MyApp,
-    ItemDetailPage,
     SearchPage,
+	ItemDetailPage,
+	MapPage,
+	TabsPage,
   ],
   imports: [
     BrowserModule,
@@ -65,8 +71,10 @@ export function provideSettings(storage: Storage) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ItemDetailPage,
-    SearchPage,
+    MapPage,
+	TabsPage,
+	SearchPage,
+	ItemDetailPage,
   ],
   providers: [
     Api,

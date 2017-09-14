@@ -1,52 +1,62 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage,NavController } from 'ionic-angular';
 
-import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition } from '@ionic-native/google-maps';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
-declare var google: any;
+declare var google;
 
+@IonicPage()
 @Component({
-  selector: 'page-map',
+  selector: 'page-home',
   templateUrl: 'map.html'
 })
 export class MapPage {
 
-  @ViewChild('map') map;
-  mapElement: HTMLElement;
+  map: any;
 
-  constructor(private googleMaps: GoogleMaps, public navCtrl: NavController, public platform: Platform) { }
+  constructor(
+    public navCtrl: NavController,
+    public geolocation: Geolocation
+  ) {}
 
-
-  ngAfterViewInit() {
-    this.loadMap();
+  ionViewDidLoad(){
+    this.getPosition();
   }
-  loadMap() {
-    this.mapElement = document.getElementById('map');
 
-    this.map = this.googleMaps.create(this.mapElement);
+  getPosition():any{
+    this.geolocation.getCurrentPosition()
+    .then(response => {
+      this.loadMap(response);
+    })
+    .catch(error =>{
+      console.log(error);
+    })
+  }
 
-    // Wait the MAP_READY before using any methods.
-    this.map.one(GoogleMapsEvent.MAP_READY)
-      .then(() => {
-        console.log('Map is ready!');
+  loadMap(position: Geoposition){
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    console.log(latitude, longitude);
+    
+    // create a new map by passing HTMLElement
+    let mapEle: HTMLElement = document.getElementById('map');
 
-        // Now you can use all methods safely.
-        this.map.addMarker({
-            title: 'Ionic',
-            icon: 'blue',
-            animation: 'DROP',
-            position: {
-              lat: 43.0741904,
-              lng: -89.3809802
-            }
-          })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MARKER_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
-          });
+    // create LatLng object
+    let myLatLng = {lat: latitude, lng: longitude};
 
+    // create map
+    this.map = new google.maps.Map(mapEle, {
+      center: myLatLng,
+      zoom: 12
+    });
+
+    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+      let marker = new google.maps.Marker({
+        position: myLatLng,
+        map: this.map,
+        title: 'Hello World!'
       });
+      mapEle.classList.add('show-map');
+    });
   }
 }

@@ -18,7 +18,7 @@ export class SearchPage {
   currentItems: any = [];
 
   constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+    this.currentItems = this.items.query({origem: ""});
   }
   /**
    * Perform a service for the proper items.
@@ -26,11 +26,11 @@ export class SearchPage {
   getItems(ev) {
     let val = ev.target.value;
     if (!val || !val.trim()) {
-      this.currentItems = this.items.query();
+      this.currentItems = this.items.query( {origem: ""});
       return;
     }
     this.currentItems = this.items.query({
-      name: val, about: val
+      about: val
     });
   }
 

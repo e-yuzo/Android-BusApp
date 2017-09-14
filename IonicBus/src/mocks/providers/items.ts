@@ -189,8 +189,8 @@ export class Items {
 	
       },
 	  {
-        "destino": "Terminal",
         "origem": "Jardim Gutierrez",
+        "destino": "Terminal",
 		"profilePic": "assets/img/bus.jpg",
         "about": "Jardim Gutierrez | Terminal",
 		"semana":   [	
@@ -316,8 +316,8 @@ export class Items {
                     ]
 	
       },{
-        "destino": "Terminal",
         "origem": "Vila Guarujá",
+        "destino": "Terminal",
 		"profilePic": "assets/img/bus.jpg",
         "about": "Vila Guarujá | Terminal",
 		"semana":   [	

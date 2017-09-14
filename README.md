@@ -8,7 +8,7 @@ Mais detalhes Readme na pasta IonicBus
 - $ionic install
 - $ionic serve //testa no navegador
 
-# Fequisitos -/em andamento/-
+# Requisitos -/em andamento/-
 - Mostrar Horários dos onibus
 - Mostrar rotas
 - Mostrar pontos de ônibus

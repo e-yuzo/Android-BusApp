@@ -18,9 +18,7 @@ export class ItemDetailPage {
   }
   
   reverse(item: Item) {
-    this.navCtrl.push(ItemDetailPage, {
-      item: this.next
-    });
+	  this.item= this.next;
   }
 
 }

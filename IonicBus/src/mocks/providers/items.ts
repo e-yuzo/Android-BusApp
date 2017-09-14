@@ -387,66 +387,6 @@ export class Items {
             }
                     ]
 	
-      },
-      {
-        "name": "Terminal | JBS | Rodoviaria",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Terminal | JBS | Rodoviaria"
-      },
-      {
-        "name": "JARDIM CIDADE NOVA | CONJ. FORTUNATO PERDONCINI | VILA URUPÃŠS | TERMINAL",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(09)"
-      },
-      {
-        "name": "PARQUE INDUSTRIAL II | TERMINAL",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(08)"
-      },
-      {
-        "name": "CONJ.MORADIAS CONDOR | JD.AEROPORTO | JD.PAULISTA | CONJ. PARIGOT DE SOUZA | JARDIM F.F ALBUQUERQUE | TERMINAL",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(07)"
-      },
-      {
-        "name": "CONJ. AVELINO PIACENTINI | JD.TROPICAL | CONJ. DIAMANTE AZUL | DETRAN - CEMITÃ‰RIO | TERMINAL",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(06)"
-      },
-      {
-        "name": "JD. MODELO - PERIM. TANCREDO NEVES | TERMINAL.",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(05)"
-      },
-      {
-        "name": "JARDIM SANTA CRUZ | JARDIM N. SRA. APARECIDA | TERMINAL.",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Segunda-Sabado.(04)"
-      },
-      {
-        "name": "CONJ. DRÂº MILTON LUIS PEREIRA | ( COHAPAR ) | RUA DAS PALMEIRAS | TERMINAL.",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Segunda-Sabado.(03)"
-      },
-      {
-        "name": "PARQUE INDUSTRIAL I | ( SESI ) LAR | PARANÃ� | TERMINAL ",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(02)"
-      },
-      {
-        "name": "JARDIM ALVORADA | PARANÃ� DIESEL | TERMINAL ",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(02)"
-      },
-      {
-        "name": "COHAPAR | TERMINAL ",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(01)"
-      },
-      {
-        "name": "LOJA DE PEÃ‡AS | TERMINAL ",
-        "profilePic": "assets/img/bus.jpg",
-        "about": "Todos os dias.(01)"
       }
     ];
 

@@ -13,7 +13,6 @@ import { SearchPage } from '../pages/search/search';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MapPage } from '../pages/map/map';
 
-
 import { Api } from '../providers/api';
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/settings';

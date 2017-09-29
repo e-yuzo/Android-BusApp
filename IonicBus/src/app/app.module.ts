@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage, IonicStorageModule } from '@ionic/storage';
-import { Geolocation } from '@ionic-native/geolocation';
 
 
 import { MyApp } from './app.component';
@@ -11,7 +10,7 @@ import { MyApp } from './app.component';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { SearchPage } from '../pages/search/search';
 import { TabsPage } from '../pages/tabs/tabs';
-import { MapPage } from '../pages/map/map';
+import { MapPage } from '../pages/home/home';
 
 import { Api } from '../providers/api';
 import { Items } from '../mocks/providers/items';
@@ -19,7 +18,6 @@ import { Settings } from '../providers/settings';
 import { User } from '../providers/user';
 
 import { Camera } from '@ionic-native/camera';
-import { GoogleMaps } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -81,8 +79,6 @@ export function provideSettings(storage: Storage) {
     Items,
     User,
     Camera,
-    GoogleMaps,
-	Geolocation,
     SplashScreen,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },

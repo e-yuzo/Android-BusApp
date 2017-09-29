@@ -8,7 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FirstRunPage } from '../pages/pages';
 import { SearchPage } from '../pages/search/search';
 import { TabsPage } from '../pages/tabs/tabs';
-import { MapPage } from '../pages/map/map';
+import { MapPage } from '../pages/home/home';
 
 import { Settings } from '../providers/providers';
 

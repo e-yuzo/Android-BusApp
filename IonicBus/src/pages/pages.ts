@@ -1,9 +1,9 @@
 import { TabsPage } from './tabs/tabs';
 import { SearchPage } from './search/search';
-import { MapPage } from './map/map';
+import { MapPage } from './home/home';
 
 // The page the user lands on after opening the app and without a session
-export const FirstRunPage = SearchPage;
+export const FirstRunPage = TabsPage;
 
 // The main page the user will see as they use the app over a long period of time.
 // Change this if not using tabs

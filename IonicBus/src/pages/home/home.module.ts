@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MapPage} from './map';
+import { MapPage} from './home';
 import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({

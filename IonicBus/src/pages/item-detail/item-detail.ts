@@ -19,8 +19,8 @@ export class ItemDetailPage {
 	this.sethora();
   }
   sethora(){
-	  this.hora= new Date();
-	  setTimeout(()=>{this.sethora()}, 1000); ;
+	  this.hora= Date();
+	  setTimeout(()=>{this.sethora()}, 1000); 
   }
   reverse(item: Item) {
 	  this.item= this.items.query({origem: this.item.destino})[0];

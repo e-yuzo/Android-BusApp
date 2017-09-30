@@ -44,14 +44,15 @@ export class MapPage {
 	this.directionsDisplay.setMap(this.map);
 	
 	for(this.i=0;this.i<this.ponto.length;this.i++){
+		var bus = this.ponto[this.i]
 		this.marker = new google.maps.Marker({
             position: {
-              lat: this.ponto[this.i].lat,
-              lng: this.ponto[this.i].lng
+              lat: bus.lat,
+              lng: bus.lng
             },
             map: this.map
           });
-          this.attachMessage(this.marker, this.ponto[this.i].msg);
+          this.attachMessage(this.marker, "<h4>"+bus.rua+"</h4>");
 		console.log("Ponto:"+this.i+ " Titulo:" + this.ponto[this.i].msg +"Hora "+ Date() );
 	}
   }

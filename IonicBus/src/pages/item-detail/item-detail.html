@@ -29,13 +29,13 @@
 	
 	
 	<ion-segment [(ngModel)]="di">
-		<ion-segment-button (click)="selectdays(1)" *ngIf="item.semana" value="1">
+		<ion-segment-button *ngIf="item.semana" value="1">
 		  Util
 		</ion-segment-button>
-		<ion-segment-button (click)="selectdays(2)" *ngIf="item.sabado" value="2">
+		<ion-segment-button *ngIf="item.sabado" value="2">
 		  Sabado
 		</ion-segment-button>
-		<ion-segment-button (click)="selectdays(3)" *ngIf="item.domingo" value="3">
+		<ion-segment-button *ngIf="item.domingo" value="3">
 		  Domingo
 		</ion-segment-button>
 	</ion-segment>
@@ -43,12 +43,13 @@
   
   
   <div class="item-detail" padding>
-    <div>
+    <div [ngSwitch]="di">
+	  <ion-list *ngSwitchCase="1">
 		<div id="segunda-sexta" class="row">
 			
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of dias">
+					<div *ngFor="let dia of item.semana">
 						<ion-item *ngIf="dia.hora< '12:00'" > {{dia.hora}}</ion-item>
 					</div>
 
@@ -56,20 +57,80 @@
 			</div>
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of dias">
+					<div *ngFor="let dia of item.semana">
 						<ion-item *ngIf="dia.hora <= '18:00' && dia.hora>='12:00'" > {{dia.hora}}</ion-item>
 					</div>
 				</ion-list>
 			</div>
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of dias">
+					<div *ngFor="let dia of item.semana">
 						<ion-item *ngIf="dia.hora >'18:00'" > {{dia.hora}}</ion-item>
 					</div>
 				</ion-list>
 			</div>
 		</div>
-	</div>
-	</div>
-  
+	  </ion-list>
+	  <ion-list *ngSwitchCase="2">
+		<div id="sabado" class="row">
+			
+			<div class="col">
+				<ion-list >
+					<div *ngFor="let dia of item.sabado">
+						<ion-item *ngIf="dia.hora< '12:00'" > {{dia.hora}}</ion-item>
+					</div>
+
+				</ion-list>
+			</div>
+			<div class="col">
+				<ion-list >
+					<div *ngFor="let dia of item.sabado">
+						<ion-item *ngIf="dia.hora <= '18:00' && dia.hora>='12:00'" > {{dia.hora}}</ion-item>
+					</div>
+				</ion-list>
+			</div>
+			<div class="col">
+				<ion-list >
+					<div *ngFor="let dia of item.sabado">
+						<ion-item *ngIf="dia.hora >'18:00'" > {{dia.hora}}</ion-item>
+					</div>
+				</ion-list>
+			</div>
+		</div>
+	  </ion-list>
+	  <ion-list *ngSwitchCase="3">
+		<div id="domingo" class="row">
+			
+			<div class="col">
+				<ion-list >
+					<div *ngFor="let dia of item.domingo">
+						<ion-item *ngIf="dia.hora< '12:00'" > {{dia.hora}}</ion-item>
+					</div>
+
+				</ion-list>
+			</div>
+			<div class="col">
+				<ion-list >
+					<div *ngFor="let dia of item.domingo">
+						<ion-item *ngIf="dia.hora <= '18:00' && dia.hora>='12:00'" > {{dia.hora}}</ion-item>
+					</div>
+				</ion-list>
+			</div>
+			<div class="col">
+				<ion-list >
+					<div *ngFor="let dia of item.domingo">
+						<ion-item *ngIf="dia.hora >'18:00'" > {{dia.hora}}</ion-item>
+					</div>
+				</ion-list>
+			</div>
+		</div>
+	  </ion-list>
+	</div>	
+  </div>
 </ion-content>
+<ion-footer>
+  <ion-navbar>
+    <ion-title>{{hora | date: 'H:mm:ss'}}</ion-title>
+  </ion-navbar>
+</ion-footer>
+

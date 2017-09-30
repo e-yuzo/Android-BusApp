@@ -22,8 +22,11 @@ export class ItemDetailPage {
 	  this.hora= Date();
 	  setTimeout(()=>{this.sethora()}, 1000); 
   }
-  reverse(item: Item) {
-	  this.item= this.items.query({origem: this.item.destino})[0];
+  reverse() {
+	  if(this.item.destino!="Terminal")
+		  this.item= this.items.query({origem: this.item.destino})[0];
+	  else
+		  this.item= this.items.query({destino: this.item.origem})[0];
   }
 
   

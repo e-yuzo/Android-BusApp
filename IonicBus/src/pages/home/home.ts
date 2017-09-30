@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 
+import { Ponto} from './ponto';
 declare var google;
 
 @IonicPage()
@@ -14,7 +15,8 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   way: any = [];
-  mark: any = [];
+  ponto: any = Ponto;
+  marker: any = [];
   i:any;
   start = '-24.045622, -52.378038';
   end = '-24.060561, -52.387306';
@@ -40,23 +42,18 @@ export class MapPage {
               lng: -52.3809802}
     });
 	this.directionsDisplay.setMap(this.map);
-	/* Vou arrumar isso ainda
-    // Now you can use all methods safely.
-    this.mark.push(
-		new google.maps.Marker({
-			position: new google.maps.LatLng(-24.0741904,-52.3809802),
-			title:"Hello World!"
-		})
-	);
-	for(this.i=0;this.i<this.mark.length;this.i++){
-		this.mark[this.i].setMap(this.map);
-		
-		this.mark[this.i].addListener('click', function() {
-          
-		  
-        });
-		console.log("Ponto:"+this.i+ " Titulo:" + this.mark[this.i].title +"Hora "+ Date() );
-	}*/
+	
+	for(this.i=0;this.i<this.ponto.length;this.i++){
+		this.marker = new google.maps.Marker({
+            position: {
+              lat: this.ponto[this.i].lat,
+              lng: this.ponto[this.i].lng
+            },
+            map: this.map
+          });
+          this.attachMessage(this.marker, this.ponto[this.i].msg);
+		console.log("Ponto:"+this.i+ " Titulo:" + this.ponto[this.i].msg +"Hora "+ Date() );
+	}
   }
 
   calculateAndDisplayRoute() {
@@ -73,5 +70,14 @@ export class MapPage {
       }
     });
   }
+    attachMessage(marker, secretMessage) {
+        var infowindow = new google.maps.InfoWindow({
+          content: secretMessage
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(marker.get('map'), marker);
+        });
+      }
 
 }

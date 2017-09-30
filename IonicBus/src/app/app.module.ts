@@ -11,6 +11,7 @@ import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { SearchPage } from '../pages/search/search';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MapPage } from '../pages/home/home';
+import { HomePage } from '../pages/home-page/home-page';
 
 import { Api } from '../providers/api';
 import { Items } from '../mocks/providers/items';

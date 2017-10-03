@@ -46,13 +46,17 @@
 
       <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
 
-        <button ion-item (click)="goToSessionDetail(session)">
+      <ion-item>  
+        <button  ion-item (click)="goToSessionDetail(session)">
           <h3>{{session.name}}</h3>
           <p>
             Próximo ônibus: {{setnext(session.ida)}}
           </p>
         </button>
-
+        <button #myButton ion-button icon-only (click)="addFavorite(slidingItem, session)">
+          <ion-icon [name]="verificaFavorito(slidingItem, session)"></ion-icon>
+        </button>
+      </ion-item>
         <ion-item-options>
           <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
             Favorite

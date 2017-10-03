@@ -34,6 +34,7 @@ export class SchedulePage {
   groups: any = [];
   confDate: string;
   hora: any;
+  buttonIcon: string = "star-outline";
   constructor(
     public alertCtrl: AlertController,
     public app: App,
@@ -159,6 +160,16 @@ export class SchedulePage {
     loading.present();
   }
 
+  toggleIcon(getIcon: string) {
+    
+        if (this.buttonIcon === 'star') {
+          this.buttonIcon = "star-outline";
+        }
+        else if (this.buttonIcon === 'star-outline') {
+          this.buttonIcon = "star";
+  }
+}
+
   doRefresh(refresher: Refresher) {
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
       this.shownSessions = data.shownSessions;
@@ -177,4 +188,15 @@ export class SchedulePage {
       }, 1000);
     });
   }
+  
+  verificaFavorito(slidingItem: ItemSliding, sessionData: any){
+    if (this.user.hasFavorite(sessionData.name)) {
+      return "star";
+    }
+    else{
+      return 'star-outline';
+    }
+  }
+
 }
+

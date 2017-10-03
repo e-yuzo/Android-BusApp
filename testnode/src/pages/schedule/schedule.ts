@@ -149,27 +149,6 @@ export class SchedulePage {
     alert.present();
   }
 
-  openSocial(network: string, fab: FabContainer) {
-    let loading = this.loadingCtrl.create({
-      content: `Posting to ${network}`,
-      duration: (Math.random() * 1000) + 500
-    });
-    loading.onWillDismiss(() => {
-      fab.close();
-    });
-    loading.present();
-  }
-
-  toggleIcon(getIcon: string) {
-    
-        if (this.buttonIcon === 'star') {
-          this.buttonIcon = "star-outline";
-        }
-        else if (this.buttonIcon === 'star-outline') {
-          this.buttonIcon = "star";
-  }
-}
-
   doRefresh(refresher: Refresher) {
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
       this.shownSessions = data.shownSessions;

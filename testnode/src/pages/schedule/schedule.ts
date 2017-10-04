@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
+import { AlertController, App, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
 
 /*
   To learn how to use third party libs in an
@@ -168,7 +168,7 @@ export class SchedulePage {
     });
   }
   
-  verificaFavorito(slidingItem: ItemSliding, sessionData: any){
+  verificaFavorito( sessionData: any){
     if (this.user.hasFavorite(sessionData.name)) {
       return "star";
     }

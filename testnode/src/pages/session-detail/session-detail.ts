@@ -50,16 +50,16 @@ export class SessionDetailPage {
     this.dataProvider.getMap().subscribe((mapData: any) => {
       
       // Salva os pontos da rota atual em way 
-      mapData.forEach((markerData: any) => {
-        this.route.forEach((route)=>{
+      this.route.forEach((route)=>{
+        mapData.forEach((markerData: any) => {
           if(markerData.id == route)
             this.way.push({"location": markerData.lat+" , "+ markerData.lng, "stopover": false})
         })
       })
-      this.load_route();
+
+      this.load_route()
     })
   }
-  
   
   ionViewDidLoad() {//carrega o mapa assim que a apagina é carregada
     this.dataProvider.getMap().subscribe((mapData: any) => {

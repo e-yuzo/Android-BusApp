@@ -85,7 +85,9 @@ export class SchedulePage {
 
   }
 
-  goToSessionDetail(sessionData: any) {
+  goToSessionDetail(sessionData: any, event) {
+
+     event.stopPropagation();
     // go to the session detail page
     // and pass in the session data
 
@@ -93,6 +95,8 @@ export class SchedulePage {
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {
+
+    
 
     if (this.user.hasFavorite(sessionData.name)) {
       // woops, they already favorited it! What shall we do!?
@@ -104,7 +108,7 @@ export class SchedulePage {
 
       // create an alert instance
       let alert = this.alertCtrl.create({
-        title: 'Favorite Added',
+        title: 'Favorite Adicionado',
         buttons: [{
           text: 'OK',
           handler: () => {

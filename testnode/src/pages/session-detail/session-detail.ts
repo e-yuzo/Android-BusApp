@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, App, ItemSliding, List, ModalController, IonicPage, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams } from 'ionic-angular';
 
 import { ConferenceData } from '../../providers/conference-data';
 

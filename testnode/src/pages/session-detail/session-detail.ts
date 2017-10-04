@@ -102,6 +102,8 @@ export class SessionDetailPage {
         destination: this.way[this.way.length-1].location,
         origin: this.way[0].location,
         waypoints: this.way,
+        optimizeWaypoints: true,
+        provideRouteAlternatives: true,
         travelMode: 'DRIVING'
       };
       let directionsService = new google.maps.DirectionsService();

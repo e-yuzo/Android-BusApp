@@ -30,26 +30,19 @@
 						"id": "2"
 						}
 				  ]
-				},{
-				  "linha": "10",
+				},
+				{
+				  "linha": "09",
 				  "sessions": 
 				  [
 						{
-						"name": "Terminal/JBS/Rodoviaria",
-						"util": ["05:00","06:25","07:10","07:45","09:15","10:40","12:05","13:30","14:55","16:20","17:45","19:10","20:35","22:00","23:25"],
+						"name": "JARDIM CIDADE NOVA CONJ. FORTUNATO PERDONCINI,VILA URUPÊS PARA TERMINAL",
+						"util": ["06:00","06:45","07:25","08:30","09:30","10:30","11:30","12:00","12:30","13:00","13:30","14:40","15:30","16:30","17:30","18:00","18:30","19:30","20:30","21:30","22:30","23:15"],
 						"sabado": [],
 						"domingoeferiado": [],
-						"tracks": ["JBS","RODOVIARIA"],
-						"rota": [],
+						"tracks": ["CIDADE NOVA","VILA URUPÊS"],
+						"rota": ["904","905","924","926","0"],
 						"id": "3"
-						},{
-						"name": "Rodoviaria/JBS/Terminal",
-						"util": ["05:15","06:40","07:25","08:00","09:30","10:55","12:20","13:45","15:10","16:35","18:00","19:25","20:50","22:15","23:40"],
-						"sabado": [],
-						"domingoeferiado": [],
-						"tracks": ["JBS","RODOVIARIA","TERMINAL"],
-						"rota": [],
-						"id": "4"
 						}
 				  ]
 				}
@@ -64,16 +57,60 @@
     "lng": -52.378038,
     "center": true,
 		"id": "1"
+  },{
+    "name": "Terminal",
+    "lat": -24.044458, 
+    "lng": -52.378988,
+    "center": true,
+		"id": "0"
   }, {
     "name": "Av. Irmãos Pereira, 531 - Centro, Campo Mourão - PR",
     "lat": -24.048432,
     "lng": -52.381744,
 		"id": "1360"
-  }, {
+	},{
     "name": "R. Rosalina Maria Ferreira, 1233 - Vila Carola, Campo Mourão - PR",
     "lat": -24.060643, 
     "lng": -52.387404,
 		"id": "1357"
-  }]
+	}, {
+    "name": "R. Olívio Salvadori, 1660 - Jardim Cidade Nova",
+    "lat": -24.016219, 
+    "lng": -52.376470,
+		"id": "904"
+	}, {
+    "name": "R. Olívio Salvadori, 1413 - Jardim Cidade Nova",
+    "lat": -24.018001,  
+    "lng": -52.377939,
+		"id": "905"
+	},{
+    "name": "R. Eng. Mercer, 1723 - Jardim Conrado",
+    "lat": -24.021735,   
+    "lng": -52.379443,
+		"id": "907"
+	},{
+    "name": "R. Eng. Mercer, 1507 - Jardim Conrado",
+    "lat": -24.022923,   
+    "lng": -52.377742,
+		"id": "909"
+	},{
+    "name": "R. Eng. Mercer, 129 - Jardim Conrado",
+    "lat": -24.030196,    
+    "lng": -52.367114,
+		"id": "910"
+	},{
+    "name": "R. Francisco Ferreira Albuquerque, 1909 - Jardim P Campo",
+    "lat": -24.040375,      
+    "lng": -52.382740,
+		"id": "926"
+	},{
+    "name": "Av. Jorge Walter - Mufatto",
+    "lat": -24.037054,     
+    "lng": -52.383389,
+		"id": "924"
+	}
+	
+	
+]
 
 }

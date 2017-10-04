@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams } from 'ionic-angular';
+import { AlertController, App, ItemSliding, List, ModalController, IonicPage, NavParams } from 'ionic-angular';
 
 import { ConferenceData } from '../../providers/conference-data';
 
@@ -12,7 +12,7 @@ import { ConferenceData } from '../../providers/conference-data';
 })
 export class SessionDetailPage {
   session: any;
-
+  dias: any;
   constructor(
     public dataProvider: ConferenceData,
     public navParams: NavParams

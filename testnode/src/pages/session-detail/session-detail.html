@@ -1,17 +1,25 @@
 <ion-header>
   <ion-navbar>
     <ion-title *ngIf="session">{{session.name}}</ion-title>
-  </ion-navbar>
+	</ion-navbar>
+	
 </ion-header>
-
 <ion-content padding>
-  <div *ngIf="session">
-    <h1>{{session.name}}</h1>
+	<div *ngIf="session">
+		<h1>{{session.name}}</h1>
+		<ion-segment [(ngModel)]="dia">
+			<ion-segment-button value="all">
+				All
+			</ion-segment-button>
+			<ion-segment-button color="danger" value="favorites">
+				Favorites
+			</ion-segment-button>
+		</ion-segment>
+		
     <div id="segunda-sexta" class="row">
-			
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of session?.ida">
+					<div *ngFor="let dia of session?.util">
 						<ion-item *ngIf="dia< '12:00'" > {{dia}}</ion-item>
 					</div>
 
@@ -19,14 +27,14 @@
 			</div>
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of session?.ida">
+					<div *ngFor="let dia of session?.util">
 						<ion-item *ngIf="dia <= '18:00' && dia>='12:00'" > {{dia}}</ion-item>
 					</div>
 				</ion-list>
 			</div>
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of session?.ida">
+					<div *ngFor="let dia of session?.util">
 						<ion-item *ngIf="dia >'18:00'" > {{dia}}</ion-item>
 					</div>
 				</ion-list>

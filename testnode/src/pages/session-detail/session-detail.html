@@ -33,4 +33,12 @@
 			</div>
 		</div>
   </div>
+  <ion-item *ngIf="!(way.length>0)">
+		<h3>Não ha rota definida</h3>
+  </ion-item>
+  
+	<ion-content class="map-page">
+		<div style="height: 100%; width: 100%" #mapCanvas id="map_canvas"></div>
+	</ion-content>
 </ion-content>
+

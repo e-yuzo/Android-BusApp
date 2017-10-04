@@ -44,43 +44,32 @@
         </ion-label>
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
+      <ion-item 
+        *ngFor="let session of group.sessions" 
+        #slidingItem [attr.track]="session.tracks[0] | lowercase" 
+        [hidden]="session.hide">
 
-      <ion-item item-end>  
-
-        
         <button  ion-item (click)="goToSessionDetail(session, $event)">
          <h3>{{session.name}}</h3>
          <p>
           Próximo ônibus: {{setnext(session.util)}}
          </p>
 
-         <button ion-button primary large item-right color="dark"(click)="addFavorite(slidingItem, session) ;$event.stopPropagation();" clear>
-          <ion-icon [name]="verificaFavorito(session)"></ion-icon>
+         <button ion-button primary large item-right color="dark"
+            (click)="addFavorite(slidingItem, session) ;$event.stopPropagation();" clear>
+          
+            <ion-icon [name]="verificaFavorito(session)"></ion-icon>
          </button>
 
         </button>
-  
-
-
       </ion-item>
-        <ion-item-options>
-          <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </button>
-          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-            Remove
-          </button>
-        </ion-item-options>
-
-      </ion-item-sliding>
 
     </ion-item-group>
 
   </ion-list>
 
   <ion-list-header [hidden]="shownSessions > 0">
-      No Sessions Found
+      Nenhuma linha encontrada verifique a coneção com a Internet
   </ion-list-header>
 
 

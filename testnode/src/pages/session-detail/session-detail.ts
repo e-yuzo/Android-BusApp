@@ -25,7 +25,9 @@ export class SessionDetailPage {
     public dataProvider: ConferenceData,
     public navParams: NavParams
   ) {}
-
+  loadmap(){
+    
+  }
   ionViewWillEnter() {// encontra qual a rota atual
     this.dataProvider.load().subscribe((data: any) => {
       if (

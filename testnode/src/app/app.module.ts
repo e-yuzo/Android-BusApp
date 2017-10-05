@@ -12,10 +12,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConferenceApp } from './app.component';
 
 import { MapPage } from '../pages/map/map';
+
 import { SchedulePage } from '../pages/schedule/schedule';
 import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
-import { TabsPage } from '../pages/tabs-page/tabs-page';
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
@@ -27,15 +27,13 @@ import { UserData } from '../providers/user-data';
     MapPage,
     SchedulePage,
     ScheduleFilterPage,
-    SessionDetailPage,
-    TabsPage
+    SessionDetailPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
-        { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
         { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
         { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
@@ -50,8 +48,7 @@ import { UserData } from '../providers/user-data';
     MapPage,
     SchedulePage,
     ScheduleFilterPage,
-    SessionDetailPage,
-    TabsPage
+    SessionDetailPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

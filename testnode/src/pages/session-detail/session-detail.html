@@ -7,7 +7,17 @@
 <ion-content padding>
 	<div *ngIf="session">
 		<h1>{{session.name}}</h1>
-		
+		<ion-toolbar color="dark" clear>
+			<ion-segment [(ngModel)]="icons">
+				<ion-segment-button value="alarm">
+					<ion-icon name="alarm"></ion-icon>
+				</ion-segment-button>
+				<ion-segment-button value="map">
+					<ion-icon name="map"></ion-icon>
+				</ion-segment-button>
+			</ion-segment>
+		</ion-toolbar>
+			
     <div id="segunda-sexta" class="row">
 			<div class="col">
 				<ion-list >
@@ -36,7 +46,7 @@
   <ion-item *ngIf="!(way.length>0)">
 		<h3>Não ha rota definida</h3>
   </ion-item>
-  
+
 	<ion-content class="map-page">
 		<div style="height: 100%; width: 100%" #mapCanvas id="map_canvas"></div>
 	</ion-content>

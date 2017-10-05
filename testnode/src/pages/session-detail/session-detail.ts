@@ -15,6 +15,7 @@ declare var google: any;
 export class SessionDetailPage {
   session: any;
   dias: any;
+  icons: any="alarm";
   way: any = []; //caminho a ser gerado
   route: any = [];
 

@@ -113,7 +113,7 @@ export class SchedulePage {
           text: 'OK',
           handler: () => {
             // close the sliding item
-            slidingItem.close();
+            
           }
         }]
       });
@@ -132,8 +132,6 @@ export class SchedulePage {
           text: 'Cancel',
           handler: () => {
             // they clicked the cancel button, do not remove the session
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
           }
         },
         {
@@ -143,8 +141,6 @@ export class SchedulePage {
             this.user.removeFavorite(sessionData.name);
             this.updateSchedule();
 
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
           }
         }
       ]

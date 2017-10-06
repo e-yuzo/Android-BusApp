@@ -20,6 +20,18 @@ import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import {AngularFireModule } from 'angularfire2';
+
+var config = {
+  apiKey: "AIzaSyDLgvTbk8vvie6raQ1ubJ28SMHphyKP-xo",
+  authDomain: "fir-113b6.firebaseapp.com",
+  databaseURL: "https://fir-113b6.firebaseio.com",
+  projectId: "fir-113b6",
+  storageBucket: "fir-113b6.appspot.com",
+  messagingSenderId: "159937614660"
+};
 
 @NgModule({
   declarations: [
@@ -40,7 +52,9 @@ import { UserData } from '../providers/user-data';
         { component: MapPage, name: 'Map', segment: 'map' }
       ]
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(config),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +69,8 @@ import { UserData } from '../providers/user-data';
     ConferenceData,
     UserData,
     InAppBrowser,
-    SplashScreen
+    SplashScreen,
+    FirebaseProvider
   ]
 })
 export class AppModule { }

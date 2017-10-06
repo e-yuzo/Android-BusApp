@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { AlertController, App, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
+import { AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
 
 /*
   To learn how to use third party libs in an
@@ -85,9 +85,7 @@ export class SchedulePage {
 
   }
 
-  goToSessionDetail(sessionData: any, event) {
-
-     event.stopPropagation();
+  goToSessionDetail(sessionData: any) {
     // go to the session detail page
     // and pass in the session data
 
@@ -95,8 +93,6 @@ export class SchedulePage {
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {
-
-    
 
     if (this.user.hasFavorite(sessionData.name)) {
       // woops, they already favorited it! What shall we do!?
@@ -108,7 +104,7 @@ export class SchedulePage {
 
       // create an alert instance
       let alert = this.alertCtrl.create({
-        title: 'Favorite Adicionado',
+        title: 'Favorite Added',
         buttons: [{
           text: 'OK',
           handler: () => {
@@ -153,6 +149,27 @@ export class SchedulePage {
     alert.present();
   }
 
+  openSocial(network: string, fab: FabContainer) {
+    let loading = this.loadingCtrl.create({
+      content: `Posting to ${network}`,
+      duration: (Math.random() * 1000) + 500
+    });
+    loading.onWillDismiss(() => {
+      fab.close();
+    });
+    loading.present();
+  }
+
+  toggleIcon() {
+    
+        if (this.buttonIcon === 'star') {
+          this.buttonIcon = "star-outline";
+        }
+        else if (this.buttonIcon === 'star-outline') {
+          this.buttonIcon = "star";
+  }
+}
+
   doRefresh(refresher: Refresher) {
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
       this.shownSessions = data.shownSessions;
@@ -164,7 +181,7 @@ export class SchedulePage {
         refresher.complete();
 
         const toast = this.toastCtrl.create({
-          message: 'Linhas atualizadas.',
+          message: 'Sessions have been updated.',
           duration: 3000
         });
         toast.present();
@@ -172,7 +189,7 @@ export class SchedulePage {
     });
   }
   
-  verificaFavorito( sessionData: any){
+  verificaFavorito(sessionData: any){
     if (this.user.hasFavorite(sessionData.name)) {
       return "star";
     }

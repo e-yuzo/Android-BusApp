@@ -13,23 +13,14 @@ export class UserData {
   constructor(
     public events: Events,
     public storage: Storage
-  ) {this.get_favorite();}
-  set_favorite(){
-    this.storage.set("favoritos",this._favorites);
-  }
-  get_favorite(){
-  this.storage.get("favoritos").then( (val) => {
-    if(val)
-    this._favorites=val;
-  } );
-  }
+  ) {}
+
   hasFavorite(sessionName: string): boolean {
     return (this._favorites.indexOf(sessionName) > -1);
   };
 
   addFavorite(sessionName: string): void {
     this._favorites.push(sessionName);
-    this.set_favorite();
   };
 
   removeFavorite(sessionName: string): void {

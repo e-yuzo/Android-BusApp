@@ -1,17 +1,17 @@
 <ion-header>
   <ion-navbar>
     <ion-title *ngIf="session">{{session.name}}</ion-title>
-	</ion-navbar>
-	
+  </ion-navbar>
 </ion-header>
+
 <ion-content padding>
-	<div *ngIf="session">
-		<h1>{{session.name}}</h1>
-		
+  <div *ngIf="session">
+    <h1>{{session.name}}</h1>
     <div id="segunda-sexta" class="row">
+			
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of session?.util">
+					<div *ngFor="let dia of session?.ida">
 						<ion-item *ngIf="dia< '12:00'" > {{dia}}</ion-item>
 					</div>
 
@@ -19,26 +19,18 @@
 			</div>
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of session?.util">
+					<div *ngFor="let dia of session?.ida">
 						<ion-item *ngIf="dia <= '18:00' && dia>='12:00'" > {{dia}}</ion-item>
 					</div>
 				</ion-list>
 			</div>
 			<div class="col">
 				<ion-list >
-					<div *ngFor="let dia of session?.util">
+					<div *ngFor="let dia of session?.ida">
 						<ion-item *ngIf="dia >'18:00'" > {{dia}}</ion-item>
 					</div>
 				</ion-list>
 			</div>
 		</div>
   </div>
-  <ion-item *ngIf="!(way.length>0)">
-		<h3>Não ha rota definida</h3>
-  </ion-item>
-  
-	<ion-content class="map-page">
-		<div style="height: 100%; width: 100%" #mapCanvas id="map_canvas"></div>
-	</ion-content>
 </ion-content>
-

@@ -1,16 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
-
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { IonicStorageModule } from '@ionic/storage';
-
 import { ConferenceApp } from './app.component';
-
 import { AboutPage } from '../pages/about/about';
 import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
@@ -23,10 +18,22 @@ import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
-
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 
+
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDLgvTbk8vvie6raQ1ubJ28SMHphyKP-xo",
+  authDomain: "fir-113b6.firebaseapp.com",
+  databaseURL: "https://fir-113b6.firebaseio.com",
+  projectId: "fir-113b6",
+  storageBucket: "fir-113b6.appspot.com",
+  messagingSenderId: "159937614660"
+};
 
 @NgModule({
   declarations: [
@@ -62,6 +69,8 @@ import { UserData } from '../providers/user-data';
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
       ]
     }),
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -85,7 +94,8 @@ import { UserData } from '../providers/user-data';
     ConferenceData,
     UserData,
     InAppBrowser,
-    SplashScreen
+    SplashScreen,
+    FirebaseProvider
   ]
 })
 export class AppModule { }

@@ -32,7 +32,6 @@ var config = {
   storageBucket: "fir-113b6.appspot.com",
   messagingSenderId: "159937614660"
 };
-
 @NgModule({
   declarations: [
     ConferenceApp,

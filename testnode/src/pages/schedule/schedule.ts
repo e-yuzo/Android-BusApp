@@ -164,7 +164,7 @@ export class SchedulePage {
         refresher.complete();
 
         const toast = this.toastCtrl.create({
-          message: 'Sessions have been updated.',
+          message: 'Linhas atualizadas.',
           duration: 3000
         });
         toast.present();

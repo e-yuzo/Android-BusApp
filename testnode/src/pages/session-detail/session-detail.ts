@@ -2,6 +2,11 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavParams } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 
+
+import{ FirebaseProvider } from '../../providers/firebase/firebase'
+import{ FirebaseListObservable } from 'angularfire2'
+
+
 declare var google: any;
 
 @IonicPage({
@@ -19,12 +24,20 @@ export class SessionDetailPage {
   way: any = []; //caminho a ser gerado
   route: any = [];
 
+  doall: any
+
   @ViewChild('mapCanvas') mapElement: ElementRef;
   map: any;
   constructor(
     public dataProvider: ConferenceData,
-    public navParams: NavParams
-  ) {}
+    public navParams: NavParams,
+    public firebaseprovider: FirebaseProvider,
+  ) {
+    this.doall= this.firebaseprovider.getAll()
+    console.log(this.doall)
+  }
+
+
   loadmap(){
     
   }

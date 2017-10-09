@@ -14,6 +14,7 @@
 					"ida": ["06:45","07:20","07:55","09:00","10:10","11:50","12:45","13:15","13:40","15:35","17:15","17:30","18:30","18:50","19:15","20:00","21:10"],
 					"location": "UTFPR",
 					"tracks": ["UTFPR"],
+					"rota": ["1","1360","1361","1357"],
 					"id": "1"
 					},
 					{
@@ -21,6 +22,7 @@
 					"ida": ["07:00","07:25","09:20","10:20","12:05","13:00","14:00","15:50","16:50","17:40","18:00","18:45","20:10","21:25","22:05","23:10"],
 					"location": "UTFPR",
 					"tracks": ["UTFPR"],
+					"rota": ["1357","1362","1363","0"],
 					"id": "2"
 					}
 				  ]
@@ -30,19 +32,52 @@
 	],
 
 
+  
   "map": [{
     "name": "Terminal",
     "lat": -24.045622 ,
     "lng": -52.378038,
-    "center": true
+    "center": true,
+		"id": "1"
+  },{
+    "name": "Terminal",
+    "lat": -24.044458, 
+    "lng": -52.378988,
+    "center": true,
+		"id": "0"
   }, {
-    "name": "R. Francisco Ferreira Albuquerque, 637 - Centro",
-    "lat": -24.049166 ,
-    "lng": -52.374646
-  }, {
-    "name": "Av. Afonso Botelho, 1286 - Centro",
-    "lat": -24.046362,
-    "lng": -52.370501
-  }]
+    "name": "Av. Irmãos Pereira, 531 - Centro, Campo Mourão - PR",
+    "lat": -24.048432,
+    "lng": -52.381744,
+		"id": "1360"
+	},{
+    "name": "R. Rosalina Maria Ferreira, 1233 - Vila Carola, Campo Mourão - PR",
+    "lat": -24.060643, 
+    "lng": -52.387404,
+		"id": "1357"
+	}, 
+	{
+	"name":"Av. Irmãos Pereira-Rua Pitanga",
+	"lat":-24.050420, 
+	"lng":-52.384187,
+		"id":"1361"
+	}
+	,
+	{
+	 "name":"Av. Capitão Indio bandeira-Rua Mambore",
+	 "lat":-24.050088, 
+	 "lng":-52.386315,
+	 	"id":"1362"
+
+	}
+	,
+	{
+	 "name":"Av. Capitão Indio bandeira-Rua Brzeziski",
+	 "lat": -24.045859,
+	 "lng": -52.380900,
+	  "id":"1363"
+	}
+	
+ ]
 
 }

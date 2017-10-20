@@ -4,7 +4,6 @@ import { ConferenceData } from '../../providers/conference-data';
 
 
 import{ FirebaseProvider } from '../../providers/firebase/firebase'
-import{ FirebaseListObservable } from 'angularfire2'
 
 
 declare var google: any;

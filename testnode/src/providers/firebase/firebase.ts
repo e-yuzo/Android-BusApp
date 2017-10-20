@@ -10,6 +10,6 @@ export class FirebaseProvider {
   constructor(public afd: AngularFireDatabase, public http: Http) { }
  
   getAll() {
-    return this.afd.list('/').valueChanges();
+    return this.afd.list('/')
   }
 }

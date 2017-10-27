@@ -1,12 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavParams } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 
 
-import{ FirebaseProvider } from '../../providers/firebase/firebase'
-
-
-declare var google: any;
 
 @IonicPage({
   segment: 'session/:sessionId'
@@ -19,27 +15,13 @@ declare var google: any;
 export class SessionDetailPage {
   session: any;
   dias: any;
-  icons: any="alarm";
-  way: any = []; //caminho a ser gerado
-  route: any = [];
-
-  doall: any
-
-  @ViewChild('mapCanvas') mapElement: ElementRef;
-  map: any;
+  route: any=[]
   constructor(
     public dataProvider: ConferenceData,
     public navParams: NavParams,
-    public firebaseprovider: FirebaseProvider,
-  ) {
-    this.doall= this.firebaseprovider.getAll()
-    console.log(this.doall)
+    ) {
   }
 
-
-  loadmap(){
-    
-  }
   ionViewWillEnter() {// encontra qual a rota atual
     this.dataProvider.load().subscribe((data: any) => {
       if (
@@ -60,7 +42,7 @@ export class SessionDetailPage {
         }
       }
     })
-    
+    let way: any= []
     this.route=this.session.rota
     this.dataProvider.getMap().subscribe((mapData: any) => {
       
@@ -68,67 +50,13 @@ export class SessionDetailPage {
       this.route.forEach((route)=>{
         mapData.forEach((markerData: any) => {
           if(markerData.id == route)
-            this.way.push({"location": markerData.lat+" , "+ markerData.lng, "stopover": false})
+            way.push(markerData.name)
         })
       })
-
-      this.load_route()
     })
+
+    this.route=way
   }
   
-  ionViewDidLoad() {//carrega o mapa assim que a apagina é carregada
-    this.dataProvider.getMap().subscribe((mapData: any) => {
-      let mapEle = this.mapElement.nativeElement;
-
-      this.map = new google.maps.Map(mapEle, {
-        center: mapData.find((d: any) => d.center),
-        zoom: 15
-      });
-
-      mapData.forEach((markerData: any) => {
-        let infoWindow = new google.maps.InfoWindow({
-          content: `<h5>${markerData.name}</h5>`
-        });
-
-        let marker = new google.maps.Marker({
-          position: markerData,
-          map: this.map,
-          title: markerData.name
-        });
-
-        marker.addListener('click', () => {
-          infoWindow.open(this.map, marker);
-        });
-      });
-      
-      google.maps.event.addListenerOnce(this.map, 'idle', () => {
-        mapEle.classList.add('show-map');
-      });
-    });
-  }
-  load_route(){//carrega o caminho no qual o ônibus percorre
-    if(this.way.length>0){
-
-      let directionsDisplay = new google.maps.DirectionsRenderer({
-        map: this.map
-      });
-      console.log(this.way)
-      let request = {
-        destination: this.way[this.way.length-1].location,
-        origin: this.way[0].location,
-        waypoints: this.way,
-        optimizeWaypoints: true,
-        provideRouteAlternatives: true,
-        travelMode: 'DRIVING'
-      };
-      let directionsService = new google.maps.DirectionsService();
-      
-      directionsService.route(request, function(response, status) {
-        if (status == 'OK') {
-          // Display the route on the map.
-          directionsDisplay.setDirections(response);
-        }
-      });
-    }
-  }  
+  
 }

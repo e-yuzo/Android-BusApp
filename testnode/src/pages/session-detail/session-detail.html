@@ -1,27 +1,12 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title *ngIf="session">{{session.name}}</ion-title>
-		<ion-buttons end>
-			<button ion-button icon-only (click)="loadmap()">
-			  <ion-icon ios="ios-options-outline" md="md-map"></ion-icon>
-			</button>
-		  </ion-buttons>
 	</ion-navbar>
 	
 </ion-header>
 <ion-content padding>
 	<div *ngIf="session">
 		<h1>{{session.name}}</h1>
-		<ion-toolbar color="dark" clear>
-			<ion-segment [(ngModel)]="icons">
-				<ion-segment-button value="alarm">
-					<ion-icon name="alarm"></ion-icon>
-				</ion-segment-button>
-				<ion-segment-button value="map">
-					<ion-icon name="map"></ion-icon>
-				</ion-segment-button>
-			</ion-segment>
-		</ion-toolbar>
 
 		<div id="segunda-sexta" class="row">
 			<div class="col">
@@ -48,12 +33,12 @@
 			</div>
 		</div>
 	</div>
-	<ion-item *ngIf="!(way.length>0)">
-		<h3>Não ha rota definida</h3>
-	</ion-item>
 
-	<ion-content class="map-page">
-		<div style="height: 100%; width: 100%" #mapCanvas id="map_canvas"></div>
-	</ion-content>
+	<div>
+		<h4>Itinerario</h4>
+		<div *ngFor="let way of route">
+			<ion-item> {{way}}</ion-item>
+		</div>
+	</div>
 
 </ion-content>

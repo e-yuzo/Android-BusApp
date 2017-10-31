@@ -101,52 +101,13 @@ export class SchedulePage {
     } else {
       // remember this session as a user favorite
       this.user.addFavorite(sessionData.name);
-
-      // create an alert instance
-      let alert = this.alertCtrl.create({
-        title: 'Favorito adicionado!',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            // close the sliding item
-            slidingItem.close();
-          }
-        }]
-      });
-      // now present the alert on top of all other content
-      alert.present();
     }
 
   }
 
   removeFavorite(slidingItem: ItemSliding, sessionData: any, title: string) {
-    let alert = this.alertCtrl.create({
-      title: title,
-      message: 'Would you like to remove this session from your favorites?',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            // they clicked the cancel button, do not remove the session
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        },
-        {
-          text: 'Remove',
-          handler: () => {
-            // they want to remove this session from their favorites
             this.user.removeFavorite(sessionData.name);
             this.updateSchedule();
-
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        }
-      ]
-    });
-    // now present the alert on top of all other content
-    alert.present();
   }
 
   openSocial(network: string, fab: FabContainer) {

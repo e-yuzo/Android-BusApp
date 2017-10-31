@@ -26,6 +26,7 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyDLgvTbk8vvie6raQ1ubJ28SMHphyKP-xo",
   authDomain: "fir-113b6.firebaseapp.com",
@@ -95,6 +96,7 @@ const firebaseConfig = {
     UserData,
     InAppBrowser,
     SplashScreen,
+    MapPage,
     FirebaseProvider
   ]
 })

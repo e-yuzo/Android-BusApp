@@ -53,18 +53,13 @@
             Próximo ônibus: {{setnext(session.ida)}}
           </p>
         </button>
-        <button #myButton ion-button icon-only (click)="addFavorite(slidingItem, session)">
-          <ion-icon [name]="verificaFavorito(slidingItem, session)"></ion-icon>
-        </button>
+	<button ion-button primary large item-right color="dark"
+            (click)="addFavorite(slidingItem, session) ;$event.stopPropagation();" clear>
+          
+            <ion-icon [name]="verificaFavorito(session)"></ion-icon>
+         </button>
       </ion-item>
-        <ion-item-options>
-          <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </button>
-          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-            Remove
-          </button>
-        </ion-item-options>
+     
 
       </ion-item-sliding>
 

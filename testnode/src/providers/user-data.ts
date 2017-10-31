@@ -40,6 +40,7 @@ export class UserData {
     if (index > -1) {
       this._favorites.splice(index, 1);
     }
+	this.set_favorite();
   };
 
   login(username: string): void {

@@ -4,21 +4,56 @@ import { ConferenceData } from '../../providers/conference-data';
 
 import { Platform } from 'ionic-angular';
 
+import { IonicPage, NavParams } from 'ionic-angular';
 
 
 declare var google: any;
 
+
+@IonicPage({
+  segment: 'session/:sessionId'
+})
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
 })
 export class MapPage {
+  session: any
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
-  constructor(public confData: ConferenceData, public platform: Platform) {
-    platform.ready().then(() => { 
+  constructor(
+    public confData: ConferenceData,
+    public platform: Platform,
+    public navParams: NavParams,
+  ) {
+    platform.ready().then(() => {
+      this.FindSession()
       this.loadMap();
-     });
+    });
+  }
+
+
+  FindSession() {// encontra qual a rota atual
+    this.confData.load().subscribe((data: any) => {
+      if (
+        data &&
+        data.schedule &&
+        data.schedule[0] &&
+        data.schedule[0].groups &&
+        this.navParams.data.sessionId
+      ) {
+        for (const group of data.schedule[0].groups) {
+          if (group && group.sessions) {
+            for (const session of group.sessions) {
+              if (session && session.id === this.navParams.data.sessionId) {
+                this.session = session;
+                break;
+              }
+            }
+          }
+        }
+      }
+    })
   }
 
   loadMap() {

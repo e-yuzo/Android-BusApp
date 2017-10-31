@@ -77,6 +77,7 @@ export class MapPage {
       }
     })
 
+    let infoWindow;
 
     this.confData.getMap().subscribe((mapData: any) => {
       let mapEle = this.mapElement.nativeElement;
@@ -102,7 +103,7 @@ export class MapPage {
         }
         )
 
-        let infoWindow = new google.maps.InfoWindow({
+        infoWindow = new google.maps.InfoWindow({
           content:
           `
           <h5>Endereço:${markerData.name}</h5>

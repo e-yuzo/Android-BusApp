@@ -20,7 +20,13 @@ declare var google: any;
   templateUrl: 'map.html'
 })
 export class MapPage {
+
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
+
+
   session: any
+  map: any
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
   constructor(
@@ -31,10 +37,16 @@ export class MapPage {
   ) {
     platform.ready().then(() => {
       this.FindSession()
+      if (this.session) {
+        console.log(this.session.id)
+      }
       this.loadMap();
     });
   }
 
+  ionViewDidLoad() {
+
+  }
 
   FindSession() {// encontra qual a rota atual
     this.confData.load().subscribe((data: any) => {
@@ -59,7 +71,7 @@ export class MapPage {
     })
   }
 
-  loadMap() {
+  encontra_linhas() {
     let secao: any = []
     this.confData.load().subscribe((data: any) => {
       if (
@@ -79,32 +91,68 @@ export class MapPage {
         }
       }
     })
+    return secao
+  }
 
-    let infoWindow;
+
+
+
+  calculateAndDisplayRoute() {
+
+    let way: any = []
+    let route = this.session.rota
+    this.confData.getMap().subscribe((mapData: any) => {
+
+      // Salva os pontos da rota atual em way 
+      mapData.forEach((markerData: any) => {
+        route.forEach((route) => {
+          if (markerData.id == route)
+            way.push({ "location": markerData.lat + " , " + markerData.lng, "stopover": false })
+        })
+      })
+    })
+    way= way.slice(1,way.length - 1)
+
+    let start = way[0].location
+    let end = way[way.length - 1].location
+
+    this.directionsService.route({
+      destination: end,
+      origin: start,
+      waypoints: way,
+      travelMode: 'DRIVING',
+      provideRouteAlternatives: true
+    }, (response, status) => {
+      if (status === 'OK') {
+        this.directionsDisplay.setDirections(response);
+        console.log('Map is ready!');
+      }
+    });
+  }
+  loadMap() {
+    let secao: any = this.encontra_linhas()
+
+
     let markerUser;
-    
+
     this.confData.getMap().subscribe((mapData: any) => {
       let mapEle = this.mapElement.nativeElement;
-
-      let map = new google.maps.Map(mapEle, {
-        center: mapData.find((d: any) => d.center),
-        zoom: 16
-      });
 
       this.geolocation.getCurrentPosition().then(position => {
 
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         console.log(position.coords.latitude + ',' + position.coords.longitude);
         let mapOptions = {
-          center: latLng,
+          center: mapData.find((d: any) => d.center),
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
         }
 
-        map = new google.maps.Map(mapEle, mapOptions);
+        this.map = new google.maps.Map(mapEle, mapOptions);
+
 
         markerUser = new google.maps.Marker({ //user maker for gps
-          map: map,
+          map: this.map,
           icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
             new google.maps.Size(22, 22),
             new google.maps.Point(0, 18),
@@ -115,11 +163,13 @@ export class MapPage {
           content: "<h5>I'm here</h5>",
         });
         markerUser.addListener('click', () => {
-          infoWindowUser.open(map, markerUser);
+          infoWindowUser.open(this.map, markerUser);
         });
 
 
+        this.directionsDisplay.setMap(this.map);
         mapData.forEach((markerData: any) => {
+          let infoWindow;
           let routes: any = []
           secao.forEach((sessao) => {
             sessao.rota.forEach((rota) => {
@@ -128,9 +178,9 @@ export class MapPage {
               }
             })
           })
-          let names: any
+          let names: any = ""
           routes.forEach((as) => {
-            names = as.name
+            names += "<p> linha: " + as.name + " </p>"
           }
           )
 
@@ -138,13 +188,13 @@ export class MapPage {
             content:
             `
           <h5>Endereço:${markerData.name}</h5>
-          <p> linha: ${names} </p>
+          ${names}
           `
           });
 
           let marker = new google.maps.Marker({
             position: markerData,
-            map: map,
+            map: this.map,
             icon: {
               path: google.maps.SymbolPath.CIRCLE,
               scale: 4
@@ -154,23 +204,23 @@ export class MapPage {
           });
 
           marker.addListener('click', () => {
-            infoWindow.open(map, marker);
+            infoWindow.open(this.map, marker);
           });
 
           // Evento que fecha a infoWindow com click no mapa
-          google.maps.event.addListener(map, 'click', function () {
+          google.maps.event.addListener(this.map, 'click', function () {
             infoWindow.close();
           });
         });
 
-        google.maps.event.addListenerOnce(map, 'idle', () => {
+        google.maps.event.addListenerOnce(this.map, 'idle', () => {
           mapEle.classList.add('show-map');
         });
 
       }, (err) => {
         console.log(err);
       });
-
+      this.calculateAndDisplayRoute()
       this.geolocation.watchPosition().subscribe(position => {
         var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         // set marker position

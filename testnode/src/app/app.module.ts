@@ -20,7 +20,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
-
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -97,6 +97,7 @@ const firebaseConfig = {
     InAppBrowser,
     SplashScreen,
     MapPage,
+    Geolocation,
     FirebaseProvider
   ]
 })

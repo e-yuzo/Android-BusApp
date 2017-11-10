@@ -16,7 +16,10 @@ declare var google: any;
 export class MapPage {
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
-  constructor(public confData: ConferenceData, public platform: Platform, public geolocation: Geolocation) {
+  constructor(
+    public confData: ConferenceData, 
+    public platform: Platform, 
+    public geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {

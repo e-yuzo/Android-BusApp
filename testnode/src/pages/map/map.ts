@@ -6,6 +6,8 @@ import { Platform } from 'ionic-angular';
 
 import { IonicPage, NavParams } from 'ionic-angular';
 
+import { Geolocation } from '@ionic-native/geolocation';
+
 
 declare var google: any;
 
@@ -25,6 +27,7 @@ export class MapPage {
     public confData: ConferenceData,
     public platform: Platform,
     public navParams: NavParams,
+    public geolocation: Geolocation
   ) {
     platform.ready().then(() => {
       this.FindSession()
@@ -78,7 +81,8 @@ export class MapPage {
     })
 
     let infoWindow;
-
+    let markerUser;
+    
     this.confData.getMap().subscribe((mapData: any) => {
       let mapEle = this.mapElement.nativeElement;
 
@@ -87,55 +91,91 @@ export class MapPage {
         zoom: 16
       });
 
+      this.geolocation.getCurrentPosition().then(position => {
 
-      mapData.forEach((markerData: any) => {
-        let routes: any = []
-        secao.forEach((sessao) => {
-          sessao.rota.forEach((rota) => {
-            if (rota == markerData.id) {
-              routes.push(sessao)
-            }
-          })
-        })
-        let names: any
-        routes.forEach((as) => {
-          names = as.name
+        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        console.log(position.coords.latitude + ',' + position.coords.longitude);
+        let mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
         }
-        )
 
-        infoWindow = new google.maps.InfoWindow({
-          content:
-          `
+        map = new google.maps.Map(mapEle, mapOptions);
+
+        markerUser = new google.maps.Marker({ //user maker for gps
+          map: map,
+          icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+            new google.maps.Size(22, 22),
+            new google.maps.Point(0, 18),
+            new google.maps.Point(11, 11)),
+          position: latLng
+        });
+        let infoWindowUser = new google.maps.InfoWindow({
+          content: "<h5>I'm here</h5>",
+        });
+        markerUser.addListener('click', () => {
+          infoWindowUser.open(map, markerUser);
+        });
+
+
+        mapData.forEach((markerData: any) => {
+          let routes: any = []
+          secao.forEach((sessao) => {
+            sessao.rota.forEach((rota) => {
+              if (rota == markerData.id) {
+                routes.push(sessao)
+              }
+            })
+          })
+          let names: any
+          routes.forEach((as) => {
+            names = as.name
+          }
+          )
+
+          infoWindow = new google.maps.InfoWindow({
+            content:
+            `
           <h5>Endereço:${markerData.name}</h5>
           <p> linha: ${names} </p>
           `
+          });
+
+          let marker = new google.maps.Marker({
+            position: markerData,
+            map: map,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 4
+            },
+            draggable: true,
+            title: markerData.name
+          });
+
+          marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+          });
+
+          // Evento que fecha a infoWindow com click no mapa
+          google.maps.event.addListener(map, 'click', function () {
+            infoWindow.close();
+          });
         });
 
-        let marker = new google.maps.Marker({
-          position: markerData,
-          map: map,
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 4
-          },
-          draggable: true,
-          title: markerData.name
+        google.maps.event.addListenerOnce(map, 'idle', () => {
+          mapEle.classList.add('show-map');
         });
 
-        marker.addListener('click', () => {
-          infoWindow.open(map, marker);
-        });
-
-        // Evento que fecha a infoWindow com click no mapa
-        google.maps.event.addListener(map, 'click', function () {
-          infoWindow.close();
-        });
+      }, (err) => {
+        console.log(err);
       });
 
-      google.maps.event.addListenerOnce(map, 'idle', () => {
-        mapEle.classList.add('show-map');
+      this.geolocation.watchPosition().subscribe(position => {
+        var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        // set marker position
+        markerUser.setPosition(latLng);
       });
-
 
     });
 

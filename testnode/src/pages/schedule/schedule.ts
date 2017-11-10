@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
+import { AlertController, App, FabContainer, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
 
 /*
   To learn how to use third party libs in an
@@ -92,12 +92,12 @@ export class SchedulePage {
     this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.id, name: sessionData.name });
   }
 
-  addFavorite(slidingItem: ItemSliding, sessionData: any) {
+  addFavorite(sessionData: any) {
 
     if (this.user.hasFavorite(sessionData.name)) {
       // woops, they already favorited it! What shall we do!?
       // prompt them to remove it
-      this.removeFavorite(slidingItem, sessionData, 'Favorito já está adicionado');
+      this.removeFavorite( sessionData);
     } else {
       // remember this session as a user favorite
       this.user.addFavorite(sessionData.name);
@@ -105,7 +105,7 @@ export class SchedulePage {
 
   }
 
-  removeFavorite(slidingItem: ItemSliding, sessionData: any, title: string) {
+  removeFavorite(sessionData: any) {
             this.user.removeFavorite(sessionData.name);
             this.updateSchedule();
   }

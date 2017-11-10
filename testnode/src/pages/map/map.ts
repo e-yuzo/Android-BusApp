@@ -21,12 +21,9 @@ declare var google: any;
 })
 export class MapPage {
 
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
-
+ hora:any
 
   session: any
-  map: any
 
   @ViewChild('mapCanvas') mapElement: ElementRef;
   constructor(
@@ -35,17 +32,13 @@ export class MapPage {
     public navParams: NavParams,
     public geolocation: Geolocation
   ) {
+    this.sethora()
     platform.ready().then(() => {
       this.FindSession()
       if (this.session) {
         console.log(this.session.id)
       }
-      this.loadMap();
     });
-  }
-
-  ionViewDidLoad() {
-
   }
 
   FindSession() {// encontra qual a rota atual
@@ -69,6 +62,8 @@ export class MapPage {
         }
       }
     })
+    
+    this.loadMap();
   }
 
   encontra_linhas() {
@@ -97,42 +92,64 @@ export class MapPage {
 
 
 
-  calculateAndDisplayRoute() {
+  calculateAndDisplayRoute(directionsService,directionsDisplay) {
 
-    let way: any = []
-    let route = this.session.rota
-    this.confData.getMap().subscribe((mapData: any) => {
+    if (this.session) {
+      console.log("Carregando rota:")
+      let way: any = []
+      let route = this.session.rota
+      this.confData.getMap().subscribe((mapData: any) => {
 
-      // Salva os pontos da rota atual em way 
-      mapData.forEach((markerData: any) => {
-        route.forEach((route) => {
-          if (markerData.id == route)
-            way.push({ "location": markerData.lat + " , " + markerData.lng, "stopover": false })
+        // Salva os pontos da rota atual em way 
+        mapData.forEach((markerData: any) => {
+          route.forEach((route) => {
+            if (markerData.id == route)
+              way.push({ "location": markerData.lat + " , " + markerData.lng, "stopover": false })
+              console.log(markerData.lat + " , " + markerData.lng)
+          })
         })
       })
-    })
-    way= way.slice(1,way.length - 1)
+      way = way.slice(1, way.length - 1)
 
-    let start = way[0].location
-    let end = way[way.length - 1].location
+      let start = way[0].location
+      let end = way[way.length - 1].location
 
-    this.directionsService.route({
-      destination: end,
-      origin: start,
-      waypoints: way,
-      travelMode: 'DRIVING',
-      provideRouteAlternatives: true
-    }, (response, status) => {
-      if (status === 'OK') {
-        this.directionsDisplay.setDirections(response);
-        console.log('Map is ready!');
-      }
-    });
+      directionsService.route({
+        destination: end,
+        origin: start,
+        waypoints: way,
+        travelMode: 'DRIVING',
+        provideRouteAlternatives: true
+      }, (response, status) => {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+          console.log('Map is ready!');
+        }
+      });
+    }
   }
+  
+  sethora(){
+	  this.hora= new Date();
+	  setTimeout(()=>{this.sethora()}, 1000); 
+  }
+  setnext(horario: any){
+	  var d= parseFloat(this.hora.getHours());
+	  var e= parseFloat(this.hora.getMinutes());
+	  var i=0
+	  for(;i<horario.length && parseFloat(horario[i].split(":")[0])*60+parseFloat(horario[i].split(":")[1]) < d*60+e ;i++);
+	  return (horario[i])?horario[i]:"Não há mais ônibus hoje";
+  }
+
+
+
   loadMap() {
     let secao: any = this.encontra_linhas()
 
-
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+    let map: any
+  
     let markerUser;
 
     this.confData.getMap().subscribe((mapData: any) => {
@@ -148,11 +165,12 @@ export class MapPage {
           mapTypeId: google.maps.MapTypeId.ROADMAP,
         }
 
-        this.map = new google.maps.Map(mapEle, mapOptions);
+        map = new google.maps.Map(mapEle, mapOptions);
+        console.log("Mapa carregado!!")
 
 
         markerUser = new google.maps.Marker({ //user maker for gps
-          map: this.map,
+          map: map,
           icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
             new google.maps.Size(22, 22),
             new google.maps.Point(0, 18),
@@ -163,11 +181,12 @@ export class MapPage {
           content: "<h5>I'm here</h5>",
         });
         markerUser.addListener('click', () => {
-          infoWindowUser.open(this.map, markerUser);
+          infoWindowUser.open(map, markerUser);
         });
 
 
-        this.directionsDisplay.setMap(this.map);
+        directionsDisplay.setMap(map);
+
         mapData.forEach((markerData: any) => {
           let infoWindow;
           let routes: any = []
@@ -180,7 +199,12 @@ export class MapPage {
           })
           let names: any = ""
           routes.forEach((as) => {
-            names += "<p> linha: " + as.name + " </p>"
+            names += ""+
+            "<p>"+
+            "<ion-card-header> linha: " + as.name + "</ion-card-header>"+
+            "<ion-card-content> proxímo ônibus:"+  this.setnext(as.util) +" </ion-card-content>"+
+            "</ion-card>"+
+            "</p>"
           }
           )
 
@@ -194,7 +218,7 @@ export class MapPage {
 
           let marker = new google.maps.Marker({
             position: markerData,
-            map: this.map,
+            map: map,
             icon: {
               path: google.maps.SymbolPath.CIRCLE,
               scale: 4
@@ -204,23 +228,25 @@ export class MapPage {
           });
 
           marker.addListener('click', () => {
-            infoWindow.open(this.map, marker);
+            infoWindow.open(map, marker);
           });
 
           // Evento que fecha a infoWindow com click no mapa
-          google.maps.event.addListener(this.map, 'click', function () {
+          google.maps.event.addListener(map, 'click', function () {
             infoWindow.close();
           });
         });
 
-        google.maps.event.addListenerOnce(this.map, 'idle', () => {
+        google.maps.event.addListenerOnce(map, 'idle', () => {
           mapEle.classList.add('show-map');
         });
 
       }, (err) => {
         console.log(err);
       });
-      this.calculateAndDisplayRoute()
+      this.calculateAndDisplayRoute(directionsService,directionsDisplay)
+
+
       this.geolocation.watchPosition().subscribe(position => {
         var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         // set marker position

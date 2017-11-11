@@ -10,6 +10,11 @@ export class FirebaseProvider {
   constructor(public afd: AngularFireDatabase, public http: Http) { }
  
   getAll() {
-    return this.afd.list('/map/');
+    let mapa=this.afd.list('/map/')
+
+    return mapa;
+  }
+  get(){
+    return this.afd.list('/').subscribe( obj => obj )
   }
 }

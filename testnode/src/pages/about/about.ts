@@ -4,7 +4,7 @@ import { PopoverController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { PopoverPage } from '../about-popover/about-popover';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
-import { FirebaseListObservable } from 'angularfire2/database';
+
 
 @Component({
   selector: 'page-about',
@@ -12,9 +12,10 @@ import { FirebaseListObservable } from 'angularfire2/database';
 })
 
 export class AboutPage {
-  descriptions: FirebaseListObservable<any[]>;
+  descriptions: any;
   constructor(public navCtrl: NavController,  public popoverCtrl: PopoverController, public firebaseProvider: FirebaseProvider) {
     this.descriptions = this.firebaseProvider.getAll();
+
   }
   
   conferenceDate = '2047-05-17';

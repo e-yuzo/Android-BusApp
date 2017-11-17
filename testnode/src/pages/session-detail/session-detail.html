@@ -3,11 +3,11 @@
 		<ion-title *ngIf="session">{{session.name}}</ion-title>
 		<ion-buttons end>
 			<button ion-button icon-only (click)="loadmap(session)">
-			  <ion-icon ios="ios-map" md="md-map"></ion-icon>
+				<ion-icon ios="ios-map" md="md-map"></ion-icon>
 			</button>
-		  </ion-buttons>
+		</ion-buttons>
 	</ion-navbar>
-	
+
 </ion-header>
 <ion-content padding>
 	<div *ngIf="session">
@@ -37,9 +37,14 @@
 			</div>
 		</div>
 	</div>
+	<div *ngIf="pontos.length>0">
+		<h1>Caminho por onde a rota passa</h1>
+		<ion-list>
+			<div *ngFor="let ponto of pontos">
+				<ion-item> {{ponto.nome}}</ion-item>
+			</div>
+		</ion-list>
+	</div>
 
-	<ion-content class="map-page">
-		<div style="height: 100%; width: 100%" #mapCanvas id="map_canvas"></div>
-	</ion-content>
 
 </ion-content>

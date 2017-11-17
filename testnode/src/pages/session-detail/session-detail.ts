@@ -15,16 +15,28 @@ import { MapPage } from '../map/map';
 export class SessionDetailPage {
   session: any;
   dias: any;
-  icons: any="alarm";
+  icons: any = "alarm";
+  pontos: any = []
 
   constructor(
     public dataProvider: ConferenceData,
     public navParams: NavParams,
     public navCtrl: NavController
-  ) {  }
-  loadmap(sessionData: any){
+  ) { }
+  
+  loadmap(sessionData: any) {
     this.navCtrl.push(MapPage, { sessionId: sessionData.id, name: sessionData.name });
+    //this.loadpoints()
   }
+  
+  /*async loadpoints() {
+    let p=this.dataProvider.getMap()
+     this.session.rota.forEach(element => {
+        this.pontos.push(p.find( (point)=>{
+          return point.id== element
+        } ))   
+    });
+  }*/
 
   ionViewWillEnter() {
     this.dataProvider.load().subscribe((data: any) => {

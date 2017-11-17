@@ -24,8 +24,8 @@ export class MapPage {
   
   session: any
     
-  directionsDisplay: any
-  directionsService: any
+  directionsDisplay: any =new google.maps.DirectionsRenderer;
+  directionsService: any = new google.maps.DirectionsService;
   
   map: any;
   
@@ -36,25 +36,25 @@ export class MapPage {
     public navParams: NavParams,
     public geolocation: Geolocation
   ) {
-    this.sethora()  
-
-    this.directionsDisplay = new google.maps.DirectionsRenderer;
-    this.directionsService = new google.maps.DirectionsService;
-    
+    this.sethora()     
   }
-  ionViewWillEnter(){
-    this.directionsDisplay = new google.maps.DirectionsRenderer;
-    this.directionsService = new google.maps.DirectionsService;
-
+  async load(){
     this.spawnMap();
     this.loadPoints()
+  }
+  clear(){
+    this.map= null
+  }
+  ionViewDidEnter(){
+    this.load()
+  }
+
+  ionViewDidLoad(){
     this.loadUser();
     this.calculateAndDisplayRoute();
   }
-  ionViewWillLeave(){
-    this.map= null
-    this.directionsDisplay=null
-    this.directionsService=null
+  ionViewWillUnload(){
+    this.clear()
   }
   
   FindSession() {// encontra qual a rota atual
@@ -221,7 +221,6 @@ export class MapPage {
           
           if(sessao.rota && sessao.rota.length>0){
             names=""
-            console.log(sessao.rota)
             sessao.rota.forEach( rota=>{
               if (rota == markerData.id) {
                 names += "" +

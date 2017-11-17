@@ -44,7 +44,9 @@ export class FirebaseProvider {
 
     return this.Data;
   }
-
+  getOnibus(){
+    return this.afd.list('/schedule/0/groups/')
+  }
   get() {
 
     this.afd.list('/map/').subscribe((mapa) => {

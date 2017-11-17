@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SchedulePage } from '../pages/schedule/schedule';
@@ -45,7 +44,6 @@ export class ConferenceApp {
   ];
   loggedOutPages: PageInterface[] = [
     { title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' },
-    { title: 'Signup', name: 'SignupPage', component: SignupPage, icon: 'person-add' }
   ];
   rootPage: any;
 

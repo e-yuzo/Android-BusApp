@@ -2,7 +2,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 
 import { ConferenceData } from '../../providers/conference-data';
 
-import { Platform } from 'ionic-angular';
 
 import { IonicPage, NavParams } from 'ionic-angular';
 
@@ -34,7 +33,6 @@ export class MapPage {
   
   constructor(
     public confData: ConferenceData,
-    public platform: Platform,
     public navParams: NavParams,
     public geolocation: Geolocation
   ) {
@@ -42,10 +40,12 @@ export class MapPage {
 
     this.directionsDisplay = new google.maps.DirectionsRenderer;
     this.directionsService = new google.maps.DirectionsService;
-    platform.ready().then(() => {
-    });
+    
   }
   ionViewWillEnter(){
+    this.directionsDisplay = new google.maps.DirectionsRenderer;
+    this.directionsService = new google.maps.DirectionsService;
+
     this.spawnMap();
     this.loadPoints()
     this.loadUser();
@@ -106,37 +106,43 @@ export class MapPage {
   calculateAndDisplayRoute() {
     this.FindSession();
     if (this.session) {
-      console.log("Carregando rota:")
+      
+      this.directionsDisplay.setPanel(document.getElementById('details'));
+      
+      
       let way: any = []
       let route = this.session.rota
       this.confData.getMap().subscribe((mapData: any) => {
         
         // Salva os pontos da rota atual em way 
-        mapData.forEach((markerData: any) => {
+        if(route){
           route.forEach((route) => {
-            if (markerData.id == route)
-            way.push({ "location": markerData.lat + " , " + markerData.lng, "stopover": false })
-            console.log(markerData.lat + " , " + markerData.lng)
+            mapData.forEach((markerData: any) => {
+                if (markerData.id == route)
+                way.push({ location: markerData.lat + " , " + markerData.lng, stopover: false })
+              })
+            
           })
-        })
-      })
-      way = way.slice(1, way.length - 1)
-      
-      let start = way[0].location
-      let end = way[way.length - 1].location
-      
-      this.directionsService.route({
-        destination: end,
-        origin: start,
-        waypoints: way,
-        travelMode: 'DRIVING',
-        provideRouteAlternatives: true
-      }, (response, status) => {
-        if (status === 'OK') {
-          this.directionsDisplay.setDirections(response);
-          console.log('Map is ready!');
         }
-      });
+      })
+      if(way.length>0){
+        let start = way[0].location
+        let end = way[way.length - 1].location
+        way = way.slice(1, way.length - 1)
+        
+        this.directionsService.route({
+          destination: end,
+          origin: start,
+          waypoints: way,
+          travelMode: 'DRIVING',
+          provideRouteAlternatives: true
+        }, (response, status) => {
+          if (status === 'OK') {
+            this.directionsDisplay.setDirections(response);
+            console.log('Map is ready!');
+          }
+        });
+      }
     }
   }
   
@@ -207,22 +213,27 @@ export class MapPage {
     let Linhas: any = this.findRoute()
 
     this.confData.getMap().subscribe((mapData: any) => {
-
+      console.log(mapData)
       mapData.forEach((markerData: any) => {
         let infoWindow;
-        let names: any = ""
-
+        let names: any = "Não há Rotas"
         Linhas.forEach((sessao) => {
-          sessao.rota.forEach((rota) => {
-            if (rota == markerData.id) {
-              names += "" +
-                "<p>" +
-                "<ion-card-header> linha: " + sessao.name + "</ion-card-header>" +
-                "<ion-card-content> proxímo ônibus:" + this.setnext(sessao.util) + " </ion-card-content>" +
-                "</ion-card>" +
-                "</p>"
-            }
-          })
+          
+          if(sessao.rota && sessao.rota.length>0){
+            names=""
+            console.log(sessao.rota)
+            sessao.rota.forEach( rota=>{
+              if (rota == markerData.id) {
+                names += "" +
+                  "<p>" +
+                  "<ion-card-header> linha: " + sessao.name + "</ion-card-header>" +
+                  "<ion-card-content> proxímo ônibus:" + this.setnext(sessao.util) + " </ion-card-content>" +
+                  "</ion-card>" +
+                  "</p>"
+              }
+            })
+          }
+          
         })
 
         infoWindow = new google.maps.InfoWindow({

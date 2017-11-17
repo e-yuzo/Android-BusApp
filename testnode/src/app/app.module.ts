@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler, Platform } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
@@ -14,7 +14,6 @@ import { MapPage } from '../pages/map/map';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
-import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
@@ -22,8 +21,7 @@ import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { Geolocation } from '@ionic-native/geolocation';
 
-
-
+import { AngularFireAuthModule } from 'angularfire2/auth'
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
@@ -49,7 +47,6 @@ const firebaseConfig = {
     SchedulePage,
     ScheduleFilterPage,
     SessionDetailPage,
-    SignupPage,
     TabsPage,
     TutorialPage,
     SupportPage
@@ -69,11 +66,11 @@ const firebaseConfig = {
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: AccountPage, name: 'AccountPage', segment: 'account' },
-        { component: SignupPage, name: 'SignupPage', segment: 'signup' }
       ]
     }),
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -87,7 +84,6 @@ const firebaseConfig = {
     SchedulePage,
     ScheduleFilterPage,
     SessionDetailPage,
-    SignupPage,
     TabsPage,
     TutorialPage,
     SupportPage

@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 
 import { UserData } from './user-data';
 
-
+import { FirebaseProvider } from './firebase/firebase'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
@@ -14,21 +14,20 @@ import 'rxjs/add/observable/of';
 export class ConferenceData {
   data: any;
 
-  constructor(public http: Http, public user: UserData) { }
+  constructor(public http: Http, public user: UserData, public fire: FirebaseProvider) { }
 
   load(): any {
-    if (this.data) {
+    return Observable.of(this.processData(this.fire.get()))
+    /*if (this.data) {
       return Observable.of(this.data);
     } else {
-      return this.http.get('assets/data/data.json')
-        .map(this.processData, this);
-    }
+    }*/
   }
 
   processData(data: any) {
     // just some good 'ol JS fun with objects and arrays
     // build up the data by linking speakers to sessions
-    this.data = data.json();
+    this.data = data;
 
     this.data.tracks = [];
 

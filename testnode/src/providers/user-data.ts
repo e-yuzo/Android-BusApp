@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { UserOptions } from '../interfaces/user-options';
 
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class UserData {
@@ -12,7 +14,8 @@ export class UserData {
 
   constructor(
     public events: Events,
-    public storage: Storage
+    public storage: Storage,
+    public auth: AngularFireAuth
   ) {this.get_favorite();}
 	set_favorite(){
 		this.storage.set("favoritos", this._favorites);
@@ -43,16 +46,28 @@ export class UserData {
 	this.set_favorite();
   };
 
-  login(username: string): void {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.events.publish('user:login');
+  async login(username: UserOptions) {
+    try{
+      const ok= await this.auth.auth.signInWithEmailAndPassword(username.username,username.password)
+      if( ok){
+        this.storage.set(this.HAS_LOGGED_IN, true);
+        this.setUsername(username);
+        this.events.publish('user:login')
+        console.log("Logado com sucesso")
+      }
+    }
+    catch (e){
+      console.error("falha na autenticação: "+ e)
+    }
   };
 
-  signup(username: string): void {
+  signup(username: UserOptions): void {
+    /*
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(username);
     this.events.publish('user:signup');
+    */
+    username
   };
 
   logout(): void {
@@ -61,7 +76,7 @@ export class UserData {
     this.events.publish('user:logout');
   };
 
-  setUsername(username: string): void {
+  setUsername(username: UserOptions): void {
     this.storage.set('username', username);
   };
 

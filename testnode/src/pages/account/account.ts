@@ -4,21 +4,54 @@ import { AlertController, NavController } from 'ionic-angular';
 
 import { UserData } from '../../providers/user-data';
 
+import { FirebaseProvider } from '../../providers/firebase/firebase'
+
+import { FirebaseListObservable } from 'angularfire2/database';
+
+import { UserOptions } from '../../interfaces/user-options';
+
+import { EditMapa } from './mapa-about';
+
+import { PopoverController } from 'ionic-angular';
+
+import { Network } from '@ionic-native/network';
 
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html'
 })
 export class AccountPage {
-  username: string;
+  username: UserOptions;
 
-  constructor(public alertCtrl: AlertController, public nav: NavController, public userData: UserData) {
+  maps: FirebaseListObservable<any[]>;
+  schedules: FirebaseListObservable<any[]>;
 
+  mapa: any = { id: "", lat: "", lng: "", name: "" }
+
+
+
+  constructor(
+    public alertCtrl: AlertController,
+    public nav: NavController,
+    public userData: UserData,
+    public firebase: FirebaseProvider,
+    public network: Network,
+    public popoverCtrl: PopoverController
+  ) {
+    this.maps =  this.firebase.FireMaps();
+    this.schedules = this.firebase.FireSchedule();
+  }
+
+  
+  
+
+  ngViewWillEnter() {
   }
 
   ngAfterViewInit() {
     this.getUsername();
   }
+
 
   updatePicture() {
     console.log('Clicked to update picture');
@@ -36,18 +69,21 @@ export class AccountPage {
     });
     alert.addInput({
       name: 'username',
-      value: this.username,
+      value: this.username.username,
       placeholder: 'username'
     });
     alert.addButton({
       text: 'Ok',
       handler: (data: any) => {
-        this.userData.setUsername(data.username);
+        this.userData.setUsername(data);
         this.getUsername();
       }
     });
 
     alert.present();
+  }
+  EditMap(mapa) {
+    this.mapa = mapa
   }
 
   getUsername() {
@@ -58,6 +94,39 @@ export class AccountPage {
 
   changePassword() {
     console.log('Clicked to change password');
+  }
+
+  presentPopover(event: Event, data: any) {
+    let popover = this.popoverCtrl.create(EditMapa, { data });
+    popover.present({ ev: event });
+
+    popover.onDidDismiss(data => {
+      if (data != null) {
+        this.mapa = data
+        this.saveMap(data);
+      }
+    })
+  }
+  async saveMap(insert: any){
+    try{
+      if(insert.$key){
+        this.maps.update(insert.$key,insert).then( ()=>{
+          console.log("Mapa atualizado")
+        })
+      }
+      else if(!insert.$key){
+        this.maps.push(insert).then( ()=>{
+          console.log("Mapa adicionado")
+        })
+      }
+    }
+    catch(err){
+      console.log(insert)
+      console.error(err)
+    }
+  }
+  RemoveMap(insert){
+    insert
   }
 
   logout() {

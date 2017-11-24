@@ -8,7 +8,7 @@ import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SchedulePage } from '../pages/schedule/schedule';
-import { CrudPage } from '../pages/crud/crud'
+import { AccountPage } from '../pages/account/account'
 
 
 import { ConferenceData } from '../providers/conference-data';
@@ -41,7 +41,7 @@ export class ConferenceApp {
     { title: 'Linhas', name: 'TabsPage', component: TabsPage, tabComponent: SchedulePage, index: 0, icon: 'calendar' }
   ];
   loggedInPages: PageInterface[] = [
-    { title: 'Manutenção', name: 'CrudPage', component: CrudPage, icon: 'construct' },
+    { title: 'Manutenção', name: 'AccountPage', component: AccountPage, icon: 'construct' },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [

@@ -80,7 +80,7 @@ export class UserData {
     this.storage.set('username', username);
   };
 
-  getUsername(): Promise<string> {
+  getUsername(): Promise<UserOptions> {
     return this.storage.get('username').then((value) => {
       return value;
     });

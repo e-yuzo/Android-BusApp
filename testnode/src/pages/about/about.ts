@@ -14,8 +14,7 @@ import { FirebaseProvider } from './../../providers/firebase/firebase';
 export class AboutPage {
   descriptions: any;
   constructor(public navCtrl: NavController,  public popoverCtrl: PopoverController, public firebaseProvider: FirebaseProvider) {
-    this.descriptions = this.firebaseProvider.getAll();
-
+    
   }
   
   conferenceDate = '2047-05-17';

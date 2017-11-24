@@ -39,14 +39,16 @@ export class FirebaseProvider {
       }
     })
   }
-
-  getAll() {
-
-    return this.Data;
+  FireMaps(){
+    return this.afd.list('/map/')
   }
-  getOnibus(){
+  FireSchedule(){
     return this.afd.list('/schedule/0/groups/')
   }
+
+
+
+
   get() {
 
     this.afd.list('/map/').subscribe((mapa) => {

@@ -21,10 +21,7 @@
   </ion-navbar>
 
   <ion-toolbar no-border-top>
-    <ion-searchbar color="primary"
-                   [(ngModel)]="queryText"
-                   (ionInput)="updateSchedule()"
-                   placeholder="Search">
+    <ion-searchbar color="primary" [(ngModel)]="queryText" (ionInput)="updateSchedule()" placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -46,20 +43,19 @@
 
       <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
 
-      <ion-item>  
-        <button  ion-item (click)="goToSessionDetail(session)">
-          <h3>{{session.name}}</h3>
-          <p>
-            Próximo ônibus: {{setnext(session.util)}}
-          </p>
-        </button>
-	<button ion-button primary large item-right color="dark"
-            (click)="addFavorite( session) ;$event.stopPropagation();" clear>
-          
+        <ion-item>
+          <button ion-item (click)="goToSessionDetail(session)">
+            <h3>{{session.name}}</h3>
+            <p *ngIf="session.util">
+              Próximo ônibus: {{setnext(session.util)}}
+            </p>
+          </button>
+          <button ion-button primary large item-right color="dark" (click)="addFavorite( session) ;$event.stopPropagation();" clear>
+
             <ion-icon [name]="verificaFavorito(session)"></ion-icon>
-         </button>
-      </ion-item>
-     
+          </button>
+        </ion-item>
+
 
       </ion-item-sliding>
 
@@ -68,7 +64,7 @@
   </ion-list>
 
   <ion-list-header [hidden]="shownSessions > 0">
-      No Sessions Found
+    No Sessions Found
   </ion-list-header>
 
 

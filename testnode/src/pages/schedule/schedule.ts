@@ -51,11 +51,14 @@ export class SchedulePage {
 	  setTimeout(()=>{this.sethora()}, 1000); 
   }
   setnext(horario: any){
-	  var d= parseFloat(this.hora.getHours());
-	  var e= parseFloat(this.hora.getMinutes());
-	  var i=0
-	  for(;i<horario.length && parseFloat(horario[i].split(":")[0])*60+parseFloat(horario[i].split(":")[1]) < d*60+e ;i++);
-	  return (horario[i])?horario[i]:"Não há mais ônibus hoje";
+    if(horario){
+      var d= parseFloat(this.hora.getHours());
+      var e= parseFloat(this.hora.getMinutes());
+      var i=0
+      for(;i<horario.length && parseFloat(horario[i].split(":")[0])*60+parseFloat(horario[i].split(":")[1]) < d*60+e ;i++);
+
+    }
+    return horario[i]? horario[i]:"Desculpe temos ônibus so amanhá clique para mais informações!"
   }
   ionViewDidLoad() {
     this.app.setTitle('Schedule');

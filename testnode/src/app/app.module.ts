@@ -10,6 +10,7 @@ import { AboutPage } from '../pages/about/about';
 import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
 import { EditMapa } from '../pages/account/mapa-about'
+import { EditTime } from '../pages/account/schedule-about'
 
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
@@ -47,6 +48,7 @@ const firebaseConfig = {
     LoginPage,
     MapPage,
     EditMapa,
+    EditTime,
     PopoverPage,
     SchedulePage,
     ScheduleFilterPage,
@@ -89,6 +91,7 @@ const firebaseConfig = {
     ScheduleFilterPage,
     SessionDetailPage,
     EditMapa,
+    EditTime,
     TabsPage,
     TutorialPage,
     SupportPage

@@ -11,7 +11,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
 import { UserOptions } from '../../interfaces/user-options';
 
 import { EditMapa } from './mapa-about';
-
+import { EditTime } from './schedule-about'
 import { PopoverController } from 'ionic-angular';
 
 import { Network } from '@ionic-native/network';
@@ -25,9 +25,10 @@ export class AccountPage {
 
   maps: FirebaseListObservable<any[]>;
   schedules: FirebaseListObservable<any[]>;
+  horario: any=[];
 
   mapa: any = { id: "", lat: "", lng: "", name: "" }
-
+  timenow='11:30'
 
 
   constructor(
@@ -39,7 +40,7 @@ export class AccountPage {
     public popoverCtrl: PopoverController
   ) {
     this.maps =  this.firebase.FireMaps();
-    this.schedules = this.firebase.FireSchedule();
+    this.schedules = this.firebase.FireSchedule('');
   }
 
   
@@ -96,18 +97,74 @@ export class AccountPage {
     console.log('Clicked to change password');
   }
 
-  presentPopover(event: Event, data: any) {
+  presentpopupmap(event: Event, data: any, rota) {
+    console.log(rota)
     let popover = this.popoverCtrl.create(EditMapa, { data });
     popover.present({ ev: event });
 
     popover.onDidDismiss(data => {
       if (data != null) {
         this.mapa = data
-        this.saveMap(data);
+        this.saveMap(data,rota);
       }
     })
   }
-  async saveMap(insert: any){
+  presenttime(event: Event,key:any, data: any, rota){
+    console.log(rota)
+    let popover = this.popoverCtrl.create(EditTime, { data });
+    popover.present({ ev: event });
+
+    popover.onDidDismiss(newdata => {
+      this.saveTime(key,newdata,rota)
+    })
+  }
+  printh(hora){
+    if(hora){
+      return Object.getOwnPropertyNames(hora);
+    }
+    return []
+  }
+  gethorario(rota){
+    this.horario=this.firebase.FireSchedule(rota+"/util").subscribe( (a)=>{
+      return a.forEach(() =>{
+        return a
+      })
+    })
+  }
+
+  saveTime(key,newdata,rota){
+    try{
+      if(key!=" "){
+        this.firebase.FireSchedule(rota+"/util/").remove(key);
+      }
+        this.firebase.FireSchedule(rota+"/util/").push(newdata).then(()=>{
+          console.log("Inserido??")
+        })
+    }
+    catch(err){
+      console.error(err)
+    }
+  }
+
+  async relacionaMap(id,destino){
+    try{
+      let i=0
+      this.firebase.FireSchedule(destino+'/rota/').subscribe( (a)=>{
+        console.log(a)
+        a.forEach(()=>{
+          i++
+        })
+      })
+      this.firebase.FireSchedule(destino+'/rota/'+i)
+      .push(id).set(id)
+
+    }
+    catch(err){
+      console.error(err)
+    }
+  }
+
+  async saveMap(insert: any,rota:any){
     try{
       if(insert.$key){
         this.maps.update(insert.$key,insert).then( ()=>{
@@ -115,8 +172,16 @@ export class AccountPage {
         })
       }
       else if(!insert.$key){
-        this.maps.push(insert).then( ()=>{
-          console.log("Mapa adicionado")
+        let i=0
+        this.maps.subscribe( (map)=>{
+          map.forEach( ()=>{
+            i++;
+          })
+        })
+        
+        this.maps.update(i.toString(),insert).then( ()=>{
+          this.relacionaMap(insert.id,rota)
+          console.log(i,"Mapa adicionado")
         })
       }
     }

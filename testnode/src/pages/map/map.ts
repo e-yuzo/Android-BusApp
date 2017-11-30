@@ -216,11 +216,10 @@ export class MapPage {
       console.log(mapData)
       mapData.forEach((markerData: any) => {
         let infoWindow;
-        let names: any = "Não há Rotas"
+        let names: any=""
         Linhas.forEach((sessao) => {
           
-          if(sessao.rota && sessao.rota.length>0){
-            names=""
+          if(sessao.rota){
             sessao.rota.forEach( rota=>{
               if (rota == markerData.id) {
                 names += "" +
@@ -230,6 +229,7 @@ export class MapPage {
                   "</ion-card>" +
                   "</p>"
               }
+              
             })
           }
           

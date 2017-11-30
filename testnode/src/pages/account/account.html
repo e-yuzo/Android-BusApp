@@ -8,19 +8,47 @@
 </ion-header>
 
 <ion-content class="outer-content">
-  
-  <div >
-      <button ion-item (click)="presentPopover($event,null)"> Novo Mapa</button>
-      <ion-item-sliding *ngFor="let item of maps | async">
-      <button ion-item (click)="presentPopover($event,item)">
-          <button ion-button  item-left
-          (click)="RemoveMap(item) ;$event.stopPropagation();" clear>
-          <ion-icon name="trash"  ></ion-icon>
-       </button>
-        <p>{{item.id}} - {{item.name}}</p>
-        <p>LatLng: {{item.lat}}, {{item.lng}}</p>
-      </button>      
+
+
+  <div>
+    <h4>Alterar informações de Rotas</h4>
+    <ion-item-sliding *ngFor="let route of schedules | async">
+      <ion-item>
+        {{route.linha}}
+        <ion-item *ngFor="let vias of route.sessions; let i = index" [attr.data-index]="i">
+          <h3>{{vias.name}}</h3>
+          <hr/>
+          <h5>Pontos em qual passa</h5>
+          <div *ngFor="let map of vias.rota">
+            <ion-item-sliding *ngFor="let item of maps | async">
+              {{map}} {{item.id}}
+              <button ion-item (click)="presentpopupmap($event,item,route.$key+'/sessions/'+i+'/')" *ngIf="map == item.id">
+                <p>{{item.id}} - {{item.name}}</p>
+                <p>LatLng: {{item.lat}}, {{item.lng}}</p>
+              </button>
+            </ion-item-sliding>
+          </div>
+          <ion-list>
+            <h5>Horario</h5>
+            <button ion-item (click)="presenttime($event,' ',timenow,route.$key+'/sessions/'+i+'/')"> Add</button>
+            <div >
+              <button ion-item (click)="presenttime($event,hora,vias.util[hora],route.$key+'/sessions/'+i+'/')" *ngFor="let hora of printh(vias.util)"> 
+                {{vias.util[hora]}}
+               </button>
+            </div>
+          </ion-list>
+        </ion-item>
+      </ion-item>
     </ion-item-sliding>
   </div>
-
+  <div >
+    <h4>Informações dos Pontos de Ônibus</h4>
+    <button ion-item (click)="presentpopupmap($event,'null',route.$key+'/sessions/'+i+'/')"> Novo Mapa</button>
+    <ion-item-sliding *ngFor="let item of maps | async">
+    <button ion-item (click)="presentpopupmap($event,item,route.$key+'/sessions/'+i+'/')">
+      <p>{{item.id}} - {{item.name}}</p>
+      <p>LatLng: {{item.lat}}, {{item.lng}}</p>
+    </button>      
+  </ion-item-sliding>
+</div>
 </ion-content>

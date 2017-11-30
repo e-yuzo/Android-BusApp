@@ -24,7 +24,7 @@ import { PopoverController } from 'ionic-angular';
       <ion-label>Longitude</ion-label>
       <ion-input type="number" [(ngModel)]="lng" name="lng"></ion-input>
   </ion-item>
-  <button ion-button (click)="close()" block>ADD Map</button>
+  <button ion-button (click)="close()" block>Pronto</button>
 </form>
 </ion-list>
   `
